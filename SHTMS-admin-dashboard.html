@@ -89,7 +89,11 @@ button{font:inherit}
     <div class="nav-label">Main Menu</div>
     <button class="active" data-page="Dashboard"><span class="icon">📊</span>Dashboard</button>
     <button data-page="Students"><span class="icon">🎓</span>Students</button>
-    <button data-page="Lecturers"><span class="icon">👨‍🏫</span>Lecturers</button>
+    <button data-page="Lecturers"
+        onclick="window.location.href='lecturer.html'; return false;">
+    <i class="fas fa-chalkboard-teacher"></i>
+    <span>Lecturers</span>
+</button>
     <button data-page="Departments"><span class="icon">🏛️</span>Departments</button>
     <button data-page="Programmes"><span class="icon">📚</span>Programmes</button>
     <button data-page="Courses"><span class="icon">📖</span>Courses</button>
