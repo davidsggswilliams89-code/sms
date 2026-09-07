@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="School of Health & Technology Management System — Phase 2 Academic Structure">
+<meta name="theme-color" content="#0b5d3b">
+<title>SHT Management System — Phase 2 Academic Structure</title>
+<style>
+:root{--p:#0b5d3b;--pd:#063c27;--g:#d7a928;--bg:#f4f7f5;--card:#fff;--tx:#17231d;--mut:#68766f;--bd:#e1e9e4;--ok:#087443;--warn:#a15c00;--danger:#b42318;--shadow:0 8px 28px rgba(6,60,39,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--tx)}
+button,input,select{font:inherit}.app{display:flex;min-height:100vh}.side{width:260px;background:var(--pd);color:#fff;position:fixed;inset:0 auto 0 0;z-index:20;padding:20px 14px;overflow:auto}.brand{display:flex;gap:11px;align-items:center;padding:8px 8px 22px;border-bottom:1px solid rgba(255,255,255,.12)}.logo{width:42px;height:42px;border-radius:12px;background:var(--g);color:var(--pd);display:grid;place-items:center;font-weight:900}.brand strong{display:block}.brand small{opacity:.7}.nav{margin-top:18px}.nav button{width:100%;border:0;background:transparent;color:#dcebe4;text-align:left;padding:11px 12px;border-radius:9px;margin:2px 0;cursor:pointer}.nav button:hover,.nav button.active{background:rgba(255,255,255,.1);color:#fff}.nav .group{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#9bb4a8;margin:17px 12px 6px}.main{margin-left:260px;width:calc(100% - 260px)}.top{height:70px;background:#fff;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:10}.hamb{display:none}.top .phase{color:var(--p);font-weight:800}.container{padding:28px;max-width:1500px;margin:auto}.view{display:none}.view.active{display:block}.title{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:20px}.title h1{margin:0;font-size:28px}.title p{margin:6px 0;color:var(--mut)}.btn{border:1px solid var(--bd);background:#fff;color:var(--tx);padding:10px 14px;border-radius:9px;cursor:pointer;font-weight:700}.btn.primary{background:var(--p);color:#fff;border-color:var(--p)}.btn.gold{background:var(--g);border-color:var(--g);color:#183225}.btn.danger{color:var(--danger)}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.stat,.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;box-shadow:var(--shadow)}.stat{padding:18px}.stat span{font-size:13px;color:var(--mut)}.stat b{display:block;font-size:27px;margin-top:7px;color:var(--p)}.card{padding:20px;margin-top:18px}.card h3{margin:0 0 14px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}.toolbar input,.toolbar select,.field input,.field select{border:1px solid var(--bd);border-radius:9px;padding:10px 11px;background:#fff;min-width:190px;outline:none}.toolbar input:focus,.field input:focus,.field select:focus{border-color:var(--p)}table{width:100%;border-collapse:collapse}th,td{padding:12px 10px;border-bottom:1px solid var(--bd);text-align:left;font-size:14px}th{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.05em}.badge{display:inline-flex;padding:5px 8px;border-radius:999px;font-size:12px;font-weight:800}.active-b{background:#e5f5ec;color:var(--ok)}.inactive-b{background:#f1f3f2;color:#68766f}.info-b{background:#e9f1ff;color:#2456a6}.empty{text-align:center;padding:30px;color:var(--mut)}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}.field.full{grid-column:1/-1}.modal{position:fixed;inset:0;background:rgba(0,0,0,.48);display:none;place-items:center;z-index:50;padding:18px}.modal.open{display:grid}.modalbox{background:#fff;width:min(650px,100%);border-radius:16px;padding:22px;max-height:90vh;overflow:auto}.modalhead{display:flex;justify-content:space-between;align-items:center}.modalhead h2{margin:0}.close{border:0;background:#f0f3f1;border-radius:8px;width:34px;height:34px;cursor:pointer}.actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}.notice{padding:13px 15px;border-radius:10px;background:#edf7f2;border:1px solid #d5eadf;margin-bottom:15px;color:#24533f}.mapping{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}.mapping .card{margin-top:0}.check{display:flex;gap:9px;align-items:center;margin:9px 0}.check input{accent-color:var(--p)}.footer{color:var(--mut);font-size:12px;text-align:center;padding:30px}.toast{position:fixed;right:20px;bottom:20px;background:var(--pd);color:#fff;padding:12px 16px;border-radius:10px;display:none;z-index:70}.toast.show{display:block}
+@media(max-width:900px){.side{transform:translateX(-100%);transition:.2s}.side.open{transform:translateX(0)}.main{margin-left:0;width:100%}.hamb{display:block;border:0;background:#f0f4f1;border-radius:8px;padding:8px 11px}.top{padding:0 16px}.container{padding:18px}.grid{grid-template-columns:repeat(2,1fr)}.mapping{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}table{min-width:760px}.tablewrap{overflow:auto}.title{align-items:stretch;flex-direction:column}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.top .phase{font-size:13px}.stat b{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side" id="side">
+  <div class="brand"><div class="logo">SHT</div><div><strong>School of Health &amp; Technology</strong><small>Management System</small></div></div>
+  <nav class="nav">
+    <div class="group">Foundation</div>
+    <button data-view="dashboard" class="active">▦ Dashboard</button>
+    <button data-view="users">♙ Users</button>
+    <button data-view="roles">⚿ Roles &amp; Permissions</button>
+    <button data-view="settings">⚙ Settings</button>
+    <button data-view="audit">◷ Audit Logs</button>
+    <div class="group">Phase 2 — Academic</div>
+    <button data-view="departments">▤ Departments</button>
+    <button data-view="programmes">▣ Programmes</button>
+    <button data-view="levels">▥ Programme Levels</button>
+    <button data-view="courses">▤ Courses</button>
+    <button data-view="sessions">◫ Sessions &amp; Semesters</button>
+    <button data-view="curriculum">⇄ Curriculum Mapping</button>
+    <button data-view="rules">✓ Activation Rules</button>
+  </nav>
+</aside>
+<main class="main">
+<header class="top"><div><button class="hamb" id="hamb">☰</button></div><div class="phase">Phase 2 • Academic Structure</div><div><span class="badge active-b">Prototype</span></div></header>
+<div class="container">
+
+<section id="dashboard" class="view active">
+<div class="title"><div><h1>Academic Structure</h1><p>Configure the institutional academic foundation before student registration and results.</p></div></div>
+<div class="notice"><b>Blueprint sequence:</b> Departments → Programmes → Levels → Courses → Sessions/Semesters → Curriculum Mapping → Academic Activation Rules.</div>
+<div class="grid">
+<div class="stat"><span>Departments</span><b id="countDepartments">0</b></div><div class="stat"><span>Programmes</span><b id="countProgrammes">0</b></div><div class="stat"><span>Courses</span><b id="countCourses">0</b></div><div class="stat"><span>Active Session</span><b id="activeSession" style="font-size:18px">Not set</b></div>
+</div>
+<div class="card"><h3>Phase 2 checklist</h3>
+<div class="check">✓ <span>Departments CRUD</span></div><div class="check">✓ <span>Programmes CRUD</span></div><div class="check">✓ <span>Programme levels</span></div><div class="check">✓ <span>Courses</span></div><div class="check">✓ <span>Academic sessions &amp; semesters</span></div><div class="check">✓ <span>Curriculum mappings</span></div><div class="check">✓ <span>Academic activation rules</span></div>
+<p style="color:var(--mut);font-size:13px;margin-top:15px">This HTML is a frontend prototype using browser localStorage. It is not a production database or secure backend.</p></div>
+</section>
+
+<section id="departments" class="view">
+<div class="title"><div><h1>Departments</h1><p>Create and maintain academic departments and HOD assignments.</p></div><button class="btn primary" onclick="openModal('department')">+ Add Department</button></div>
+<div class="card"><div class="toolbar"><input id="deptSearch" placeholder="Search departments..." oninput="renderDepartments()"></div><div class="tablewrap"><table><thead><tr><th>Code</th><th>Department</th><th>HOD</th><th>Status</th><th>Actions</th></tr></thead><tbody id="deptTable"></tbody></table></div></div>
+</section>
+
+<section id="programmes" class="view">
+<div class="title"><div><h1>Programmes</h1><p>Configure programme code, award, duration, department and status.</p></div><button class="btn primary" onclick="openModal('programme')">+ Add Programme</button></div>
+<div class="card"><div class="toolbar"><input id="progSearch" placeholder="Search programmes..." oninput="renderProgrammes()"><select id="progDeptFilter" onchange="renderProgrammes()"><option value="">All Departments</option></select></div><div class="tablewrap"><table><thead><tr><th>Code</th><th>Programme</th><th>Department</th><th>Award</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead><tbody id="progTable"></tbody></table></div></div>
+</section>
+
+<section id="levels" class="view">
+<div class="title"><div><h1>Programme Levels</h1><p>Define levels attached to programmes, such as ND I, ND II or HND I.</p></div><button class="btn primary" onclick="openModal('level')">+ Add Level</button></div>
+<div class="card"><div class="tablewrap"><table><thead><tr><th>Programme</th><th>Level</th><th>Sequence</th><th>Status</th><th>Actions</th></tr></thead><tbody id="levelTable"></tbody></table></div></div>
+</section>
+
+<section id="courses" class="view">
+<div class="title"><div><h1>Courses</h1><p>Maintain course code, title, credit units, level and semester.</p></div><button class="btn primary" onclick="openModal('course')">+ Add Course</button></div>
+<div class="card"><div class="toolbar"><input id="courseSearch" placeholder="Search code or title..." oninput="renderCourses()"><select id="courseLevelFilter" onchange="renderCourses()"><option value="">All Levels</option></select></div><div class="tablewrap"><table><thead><tr><th>Code</th><th>Course Title</th><th>Units</th><th>Level</th><th>Semester</th><th>Status</th><th>Actions</th></tr></thead><tbody id="courseTable"></tbody></table></div></div>
+</section>
+
+<section id="sessions" class="view">
+<div class="title"><div><h1>Sessions &amp; Semesters</h1><p>Configure academic sessions and their semesters; activate only the approved period.</p></div><button class="btn primary" onclick="openModal('session')">+ Add Session</button></div>
+<div class="card"><div class="tablewrap"><table><thead><tr><th>Session</th><th>Semester</th><th>Start</th><th>End</th><th>Status</th><th>Actions</th></tr></thead><tbody id="sessionTable"></tbody></table></div></div>
+</section>
+
+<section id="curriculum" class="view">
+<div class="title"><div><h1>Curriculum Mapping</h1><p>Connect programmes, levels, courses and semester requirements.</p></div><button class="btn primary" onclick="openModal('mapping')">+ Map Course</button></div>
+<div class="card"><div class="toolbar"><select id="mapProgFilter" onchange="renderMappings()"><option value="">All Programmes</option></select><select id="mapLevelFilter" onchange="renderMappings()"><option value="">All Levels</option></select></div><div class="tablewrap"><table><thead><tr><th>Programme</th><th>Level</th><th>Course</th><th>Semester</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead><tbody id="mapTable"></tbody></table></div></div>
+</section>
+
+<section id="rules" class="view">
+<div class="title"><div><h1>Academic Activation Rules</h1><p>Control which session/semester is active and whether registration is open.</p></div></div>
+<div class="card">
+<div class="formgrid">
+<div class="field"><label>Active Academic Session</label><select id="ruleSession"></select></div>
+<div class="field"><label>Active Semester</label><select id="ruleSemester"><option>First Semester</option><option>Second Semester</option><option>Long Vacation / Special</option></select></div>
+<div class="field"><label>Course Registration</label><select id="regStatus"><option>Open</option><option>Closed</option><option>Coming Soon</option></select></div>
+<div class="field"><label>Academic Structure</label><select id="academicStatus"><option>Active</option><option>Draft</option></select></div>
+</div>
+<div class="actions"><button class="btn primary" onclick="saveRules()">Save Activation Rules</button></div>
+</div>
+<div class="card"><h3>Protection principles</h3><p style="color:var(--mut)">Activation is a configuration layer. In production, all protected operations must be validated server-side and authorized by role; frontend controls alone are not security.</p></div>
+</section>
+
+<section id="users" class="view"><div class="title"><div><h1>Users</h1><p>Phase 1 foundation area retained for continuity.</p></div></div><div class="card"><p>Use the Phase 1 Foundation build for full user management, roles, permissions, settings and audit logs.</p></div></section>
+<section id="roles" class="view"><div class="title"><div><h1>Roles &amp; Permissions</h1><p>RBAC foundation retained from Phase 1.</p></div></div><div class="card"><p>Production permission checks must be enforced on the backend/API, not only in this HTML interface.</p></div></section>
+<section id="settings" class="view"><div class="title"><div><h1>Settings</h1><p>Institutional settings foundation retained from Phase 1.</p></div></div><div class="card"><p>Configure institution identity, grading and academic policy in the production backend.</p></div></section>
+<section id="audit" class="view"><div class="title"><div><h1>Audit Logs</h1><p>Audit foundation retained from Phase 1.</p></div></div><div class="card"><p>Critical changes such as approved-result corrections and financial actions must be auditable.</p></div></section>
+<div class="footer">School of Health &amp; Technology Management System • Phase 2 Academic Structure • Prototype</div>
+</div>
+</main></div>
+
+<div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><h2 id="modalTitle">Add</h2><button class="close" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='sht_phase2_academic_v1';
+const defaults={departments:[],programmes:[],levels:[],courses:[],sessions:[],mappings:[],rules:{session:'',semester:'First Semester',registration:'Open',academic:'Active'}};
+let db=JSON.parse(localStorage.getItem(KEY)||'null')||defaults;
+function save(){localStorage.setItem(KEY,JSON.stringify(db));refresh();}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function toast(t){const x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2200)}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>showView(b.dataset.view));
+function showView(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(v).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===v));document.getElementById('side').classList.remove('open');refresh()}
+document.getElementById('hamb').onclick=()=>document.getElementById('side').classList.toggle('open');
+
+function openModal(type,editId=''){
+ let item, title='';
+ if(type==='department'){item=db.departments.find(x=>x.id===editId)||{code:'',name:'',hod:'',status:'Active'};title=editId?'Edit Department':'Add Department';
+ document.getElementById('modalBody').innerHTML=`<form onsubmit="submitForm(event,'department','${editId}')"><div class="formgrid"><div class="field"><label>Department Code</label><input name="code" required value="${esc(item.code)}" placeholder="e.g. DPH"></div><div class="field"><label>Department Name</label><input name="name" required value="${esc(item.name)}" placeholder="Department of Public Health"></div><div class="field"><label>HOD Name</label><input name="hod" value="${esc(item.hod)}" placeholder="Optional"></div><div class="field"><label>Status</label><select name="status"><option ${item.status==='Active'?'selected':''}>Active</option><option ${item.status==='Inactive'?'selected':''}>Inactive</option></select></div></div><div class="actions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Save</button></div></form>`}
+ if(type==='programme'){item=db.programmes.find(x=>x.id===editId)||{code:'',name:'',dept:'',award:'',duration:'',status:'Active'};title=editId?'Edit Programme':'Add Programme';
+ document.getElementById('modalBody').innerHTML=`<form onsubmit="submitForm(event,'programme','${editId}')"><div class="formgrid"><div class="field"><label>Programme Code</label><input name="code" required value="${esc(item.code)}"></div><div class="field"><label>Programme Name</label><input name="name" required value="${esc(item.name)}"></div><div class="field"><label>Department</label><select name="dept" required>${db.departments.map(d=>`<option value="${d.id}" ${item.dept===d.id?'selected':''}>${esc(d.name)}</option>`).join('')}</select></div><div class="field"><label>Award Type</label><input name="award" required value="${esc(item.award)}" placeholder="ND / HND / Certificate"></div><div class="field"><label>Duration</label><input name="duration" required value="${esc(item.duration)}" placeholder="2 years"></div><div class="field"><label>Status</label><select name="status"><option ${item.status==='Active'?'selected':''}>Active</option><option ${item.status==='Inactive'?'selected':''}>Inactive</option></select></div></div><div class="actions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Save</button></div></form>`}
+ if(type==='level'){item=db.levels.find(x=>x.id===editId)||{programme:'',level:'',sequence:'1',status:'Active'};title=editId?'Edit Level':'Add Programme Level';
+ document.getElementById('modalBody').innerHTML=`<form onsubmit="submitForm(event,'level','${editId}')"><div class="formgrid"><div class="field full"><label>Programme</label><select name="programme" required>${db.programmes.map(p=>`<option value="${p.id}" ${item.programme===p.id?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Level Name</label><input name="level" required value="${esc(item.level)}" placeholder="ND I"></div><div class="field"><label>Sequence</label><input name="sequence" type="number" min="1" required value="${esc(item.sequence)}"></div><div class="field"><label>Status</label><select name="status"><option ${item.status==='Active'?'selected':''}>Active</option><option ${item.status==='Inactive'?'selected':''}>Inactive</option></select></div></div><div class="actions"><button class="btn primary">Save</button></div></form>`}
+ if(type==='course'){item=db.courses.find(x=>x.id===editId)||{code:'',title:'',units:'2',level:'',semester:'First Semester',status:'Active'};title=editId?'Edit Course':'Add Course';
+ document.getElementById('modalBody').innerHTML=`<form onsubmit="submitForm(event,'course','${editId}')"><div class="formgrid"><div class="field"><label>Course Code</label><input name="code" required value="${esc(item.code)}" placeholder="PHE 101"></div><div class="field"><label>Course Title</label><input name="title" required value="${esc(item.title)}"></div><div class="field"><label>Credit Units</label><input name="units" type="number" min="0" max="20" required value="${esc(item.units)}"></div><div class="field"><label>Level</label><select name="level" required>${[...new Set(db.levels.map(l=>l.level))].map(l=>`<option ${item.level===l?'selected':''}>${esc(l)}</option>`).join('')}</select></div><div class="field"><label>Semester</label><select name="semester">${['First Semester','Second Semester','Long Vacation / Special'].map(s=>`<option ${item.semester===s?'selected':''}>${s}</option>`).join('')}</select></div><div class="field"><label>Status</label><select name="status"><option ${item.status==='Active'?'selected':''}>Active</option><option ${item.status==='Inactive'?'selected':''}>Inactive</option></select></div></div><div class="actions"><button class="btn primary">Save</button></div></form>`}
+ if(type==='session'){item=db.sessions.find(x=>x.id===editId)||{session:'',semester:'First Semester',start:'',end:'',status:'Draft'};title=editId?'Edit Session':'Add Session';
+ document.getElementById('modalBody').innerHTML=`<form onsubmit="submitForm(event,'session','${editId}')"><div class="formgrid"><div class="field"><label>Academic Session</label><input name="session" required value="${esc(item.session)}" placeholder="2026/2027"></div><div class="field"><label>Semester</label><select name="semester">${['First Semester','Second Semester','Long Vacation / Special'].map(s=>`<option ${item.semester===s?'selected':''}>${s}</option>`).join('')}</select></div><div class="field"><label>Start Date</label><input name="start" type="date" value="${esc(item.start)}"></div><div class="field"><label>End Date</label><input name="end" type="date" value="${esc(item.end)}"></div><div class="field"><label>Status</label><select name="status"><option ${item.status==='Draft'?'selected':''}>Draft</option><option ${item.status==='Active'?'selected':''}>Active</option><option ${item.status==='Closed'?'selected':''}>Closed</option></select></div></div><div class="actions"><button class="btn primary">Save</button></div></form>`}
+ if(type==='mapping'){item=db.mappings.find(x=>x.id===editId)||{programme:'',level:'',course:'',semester:'First Semester',type:'Core',status:'Active'};title=editId?'Edit Curriculum Mapping':'Map Course to Curriculum';
+ document.getElementById('modalBody').innerHTML=`<form onsubmit="submitForm(event,'mapping','${editId}')"><div class="formgrid"><div class="field"><label>Programme</label><select name="programme" required>${db.programmes.map(p=>`<option value="${p.id}" ${item.programme===p.id?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Level</label><select name="level" required>${db.levels.map(l=>`<option value="${l.id}" ${item.level===l.id?'selected':''}>${esc(l.level)} — ${esc(progName(l.programme))}</option>`).join('')}</select></div><div class="field full"><label>Course</label><select name="course" required>${db.courses.map(c=>`<option value="${c.id}" ${item.course===c.id?'selected':''}>${esc(c.code)} — ${esc(c.title)}</option>`).join('')}</select></div><div class="field"><label>Semester</label><select name="semester">${['First Semester','Second Semester','Long Vacation / Special'].map(s=>`<option ${item.semester===s?'selected':''}>${s}</option>`).join('')}</select></div><div class="field"><label>Type</label><select name="type"><option ${item.type==='Core'?'selected':''}>Core</option><option ${item.type==='Elective'?'selected':''}>Elective</option><option ${item.type==='Optional'?'selected':''}>Optional</option></select></div></div><div class="actions"><button class="btn primary">Save Mapping</button></div></form>`}
+ document.getElementById('modalTitle').textContent=title;document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+function submitForm(e,type,editId){e.preventDefault();const f=Object.fromEntries(new FormData(e.target).entries());let arr=db[type==='department'?'departments':type==='programme'?'programmes':type==='level'?'levels':type==='course'?'courses':type==='session'?'sessions':'mappings'];if(editId){Object.assign(arr.find(x=>x.id===editId),f)}else{arr.push({id:id(),...f})}save();closeModal();toast('Saved successfully')}
+function del(type,i){if(!confirm('Delete this record? This demo will remove it from local browser storage.'))return;let k=type==='department'?'departments':type==='programme'?'programmes':type==='level'?'levels':type==='course'?'courses':type==='session'?'sessions':'mappings';db[k]=db[k].filter(x=>x.id!==i);save();toast('Record deleted')}
+function edit(type,i){openModal(type,i)}
+function deptName(i){return db.departments.find(x=>x.id===i)?.name||'—'}function progName(i){return db.programmes.find(x=>x.id===i)?.name||'—'}function courseName(i){const c=db.courses.find(x=>x.id===i);return c?c.code+' — '+c.title:'—'}function levelName(i){return db.levels.find(x=>x.id===i)?.level||'—'}
+function act(s){return `<span class="badge ${s==='Active'?'active-b':'inactive-b'}">${esc(s)}</span>`}
+function renderDepartments(){let q=(document.getElementById('deptSearch')?.value||'').toLowerCase();document.getElementById('deptTable').innerHTML=db.departments.filter(d=>(d.code+' '+d.name+' '+d.hod).toLowerCase().includes(q)).map(d=>`<tr><td><b>${esc(d.code)}</b></td><td>${esc(d.name)}</td><td>${esc(d.hod||'Not assigned')}</td><td>${act(d.status)}</td><td><button class="btn" onclick="edit('department','${d.id}')">Edit</button> <button class="btn danger" onclick="del('department','${d.id}')">Delete</button></td></tr>`).join('')||'<tr><td colspan="5" class="empty">No departments yet.</td></tr>'}
+function renderProgrammes(){let q=(document.getElementById('progSearch')?.value||'').toLowerCase(),fd=document.getElementById('progDeptFilter')?.value||'';document.getElementById('progTable').innerHTML=db.programmes.filter(p=>(!fd||p.dept===fd)&&(p.code+' '+p.name).toLowerCase().includes(q)).map(p=>`<tr><td><b>${esc(p.code)}</b></td><td>${esc(p.name)}</td><td>${esc(deptName(p.dept))}</td><td>${esc(p.award)}</td><td>${esc(p.duration)}</td><td>${act(p.status)}</td><td><button class="btn" onclick="edit('programme','${p.id}')">Edit</button> <button class="btn danger" onclick="del('programme','${p.id}')">Delete</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">No programmes yet.</td></tr>'}
+function renderLevels(){document.getElementById('levelTable').innerHTML=db.levels.map(l=>`<tr><td>${esc(progName(l.programme))}</td><td><b>${esc(l.level)}</b></td><td>${esc(l.sequence)}</td><td>${act(l.status)}</td><td><button class="btn" onclick="edit('level','${l.id}')">Edit</button> <button class="btn danger" onclick="del('level','${l.id}')">Delete</button></td></tr>`).join('')||'<tr><td colspan="5" class="empty">No programme levels yet.</td></tr>'}
+function renderCourses(){let q=(document.getElementById('courseSearch')?.value||'').toLowerCase(),fl=document.getElementById('courseLevelFilter')?.value||'';document.getElementById('courseTable').innerHTML=db.courses.filter(c=>(!fl||c.level===fl)&&(c.code+' '+c.title).toLowerCase().includes(q)).map(c=>`<tr><td><b>${esc(c.code)}</b></td><td>${esc(c.title)}</td><td>${esc(c.units)}</td><td>${esc(c.level)}</td><td>${esc(c.semester)}</td><td>${act(c.status)}</td><td><button class="btn" onclick="edit('course','${c.id}')">Edit</button> <button class="btn danger" onclick="del('course','${c.id}')">Delete</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">No courses yet.</td></tr>'}
+function renderSessions(){document.getElementById('sessionTable').innerHTML=db.sessions.map(s=>`<tr><td><b>${esc(s.session)}</b></td><td>${esc(s.semester)}</td><td>${esc(s.start||'—')}</td><td>${esc(s.end||'—')}</td><td>${act(s.status)}</td><td><button class="btn" onclick="edit('session','${s.id}')">Edit</button> <button class="btn danger" onclick="del('session','${s.id}')">Delete</button></td></tr>`).join('')||'<tr><td colspan="6" class="empty">No academic sessions yet.</td></tr>'}
+function renderMappings(){let p=document.getElementById('mapProgFilter')?.value||'',l=document.getElementById('mapLevelFilter')?.value||'';document.getElementById('mapTable').innerHTML=db.mappings.filter(m=>(!p||m.programme===p)&&(!l||m.level===l)).map(m=>`<tr><td>${esc(progName(m.programme))}</td><td>${esc(levelName(m.level))}</td><td>${esc(courseName(m.course))}</td><td>${esc(m.semester)}</td><td>${esc(m.type)}</td><td>${act(m.status)}</td><td><button class="btn" onclick="edit('mapping','${m.id}')">Edit</button> <button class="btn danger" onclick="del('mapping','${m.id}')">Delete</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">No curriculum mappings yet.</td></tr>'}
+function fillSelect(id,items,label){const s=document.getElementById(id);if(!s)return;const old=s.value;s.innerHTML='<option value="">All '+label+'</option>'+items.map(x=>`<option value="${x.id}">${esc(x.name||x.level||x.session)}</option>`).join('');if(items.some(x=>x.id===old))s.value=old}
+function refresh(){document.getElementById('countDepartments').textContent=db.departments.length;document.getElementById('countProgrammes').textContent=db.programmes.length;document.getElementById('countCourses').textContent=db.courses.length;const active=db.sessions.find(s=>s.status==='Active');document.getElementById('activeSession').textContent=active?active.session:'Not set';fillSelect('progDeptFilter',db.departments,'Departments');fillSelect('mapProgFilter',db.programmes,'Programmes');fillSelect('mapLevelFilter',db.levels,'Levels');fillSelect('courseLevelFilter',[...new Map(db.levels.map(l=>[l.level,{id:l.level,level:l.level}])).values()],'Levels');const rs=document.getElementById('ruleSession');if(rs){rs.innerHTML='<option value="">Select session</option>'+db.sessions.map(s=>`<option value="${s.id}">${esc(s.session)} — ${esc(s.semester)}</option>`).join('');rs.value=db.rules.session||'';document.getElementById('ruleSemester').value=db.rules.semester;document.getElementById('regStatus').value=db.rules.registration;document.getElementById('academicStatus').value=db.rules.academic}renderDepartments();renderProgrammes();renderLevels();renderCourses();renderSessions();renderMappings()}
+function saveRules(){db.rules={session:document.getElementById('ruleSession').value,semester:document.getElementById('ruleSemester').value,registration:document.getElementById('regStatus').value,academic:document.getElementById('academicStatus').value};save();toast('Activation rules saved')}
+refresh();
+</script>
+</body>
+</html>
