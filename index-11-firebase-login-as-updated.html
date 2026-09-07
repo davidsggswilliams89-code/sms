@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SHTMS | School Management System</title>
+<meta name="description" content="Secure login portal for the School Higher Tertiary Management System (SHTMS).">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--primary:#2563eb;--primary-dark:#1d4ed8;--secondary:#0f172a;
+--background:#f8fafc;--text:#1e293b;--muted:#64748b;--border:#e2e8f0
+}
+body{font-family:"Inter",sans-serif;min-height:100vh;background:var(--background);color:var(--text);overflow-x:hidden}
+.login-container{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.branding-section{position:relative;background:linear-gradient(135deg,rgba(15,23,42,.96),rgba(30,64,175,.92));color:#fff;padding:60px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.branding-section:before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,.05);top:-200px;right:-200px}
+.branding-section:after{content:"";position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(59,130,246,.15);bottom:-200px;left:-150px}
+.brand{position:relative;z-index:2;display:flex;align-items:center;gap:15px}
+.logo{width:58px;height:58px;border-radius:16px;background:#fff;color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800}
+.brand h2{font-size:24px}.brand p{font-size:13px;opacity:.75;margin-top:3px}
+.branding-content{position:relative;z-index:2;max-width:600px}
+.branding-content h1{font-size:48px;line-height:1.15;margin-bottom:20px}
+.branding-content>p{font-size:17px;line-height:1.8;color:rgba(255,255,255,.8);margin-bottom:35px}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.feature{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:18px;border-radius:14px}
+.feature-icon{font-size:24px;margin-bottom:10px}.feature h4{font-size:14px;margin-bottom:5px}.feature p{font-size:12px;color:rgba(255,255,255,.8);line-height:1.5}
+.branding-footer{position:relative;z-index:2;font-size:13px;opacity:.65}
+.login-section{display:flex;align-items:center;justify-content:center;padding:40px 20px;background:#fff}
+.login-box{width:100%;max-width:450px}.mobile-brand{display:none}
+.login-header{margin-bottom:35px}.login-header h1{font-size:32px;color:var(--secondary);margin-bottom:10px}.login-header p{color:var(--muted);font-size:14px;line-height:1.6}
+.alert{display:none;padding:14px 16px;border-radius:10px;margin-bottom:20px;font-size:13px;line-height:1.5}
+.alert.error{display:block;color:#991b1b;background:#fee2e2;border:1px solid #fecaca}
+.alert.success{display:block;color:#166534;background:#dcfce7;border:1px solid #bbf7d0}
+.form-group{margin-bottom:20px}.form-label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.input-wrapper{position:relative}
+.input-wrapper input{width:100%;height:52px;border:1px solid var(--border);border-radius:10px;padding:0 45px 0 16px;font-family:inherit;font-size:14px;outline:none;transition:.3s}
+.input-wrapper input:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(37,99,235,.1)}
+.password-toggle{position:absolute;right:15px;top:50%;transform:translateY(-50%);border:none;background:transparent;cursor:pointer;font-size:18px}
+.role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.role-option{position:relative}.role-option input{display:none}
+.role-option label{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80px;padding:10px;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:.25s;font-size:12px;font-weight:600;text-align:center}
+.role-option label span:first-child{font-size:20px;margin-bottom:5px}
+.role-option input:checked+label{border-color:var(--primary);background:#eff6ff;color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.role-option label:hover{border-color:var(--primary)}
+.role-note{font-size:11px;color:var(--muted);margin-top:9px;line-height:1.5}
+.form-options{display:flex;justify-content:space-between;align-items:center;margin:5px 0 25px;font-size:13px}
+.remember{display:flex;align-items:center;gap:8px;color:var(--muted)}.remember input{accent-color:var(--primary)}
+.forgot-password{color:var(--primary);text-decoration:none;font-weight:600}.forgot-password:hover{text-decoration:underline}
+.login-button{width:100%;height:54px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:10px}
+.login-button:hover{background:var(--primary-dark);transform:translateY(-1px)}.login-button:disabled{opacity:.7;cursor:not-allowed;transform:none}
+.spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.divider{display:flex;align-items:center;gap:15px;margin:25px 0;color:var(--muted);font-size:12px}.divider:before,.divider:after{content:"";flex:1;height:1px;background:var(--border)}
+.support{text-align:center;font-size:13px;color:var(--muted)}.support a{color:var(--primary);text-decoration:none;font-weight:600}
+@media(max-width:900px){.login-container{grid-template-columns:1fr}.branding-section{display:none}.mobile-brand{display:flex;align-items:center;gap:12px;margin-bottom:35px}.mobile-logo{width:48px;height:48px;border-radius:12px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}.mobile-brand h2{font-size:18px}.mobile-brand p{font-size:11px;color:var(--muted);margin-top:2px}}
+@media(max-width:500px){.login-section{padding:30px 18px}.login-header h1{font-size:27px}.role-grid{grid-template-columns:repeat(2,1fr)}.form-options{align-items:flex-start;gap:15px;flex-direction:column}}
+
+.login-fields-hidden { display: none !important; }
+.login-fields-visible { display: block !important; }
+.form-label { }
+
+</style>
+</head>
+
+<body>
+
+<main class="login-container">
+
+<section class="branding-section">
+    <div class="brand">
+        <div class="logo">S</div>
+        <div>
+            <h2>SHTMS</h2>
+            <p>School Higher Tertiary Management System</p>
+        </div>
+    </div>
+
+    <div class="branding-content">
+        <h1>Manage Your Institution Smarter</h1>
+        <p>
+            A complete digital platform designed to simplify academic administration,
+            student management, examinations, payments, and institutional operations.
+        </p>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🎓</div>
+                <h4>Student Management</h4>
+                <p>Manage student records and academic activities.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📚</div>
+                <h4>Academic System</h4>
+                <p>Courses, results, attendance and timetables.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💳</div>
+                <h4>Payments</h4>
+                <p>Secure fee management and payment tracking.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <h4>Reports</h4>
+                <p>Generate useful institutional reports.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="branding-footer">© 2026 SHTMS. All rights reserved.</div>
+</section>
+
+
+<section class="login-section">
+
+<div class="login-box">
+
+    <div class="mobile-brand">
+        <div class="mobile-logo">S</div>
+        <div>
+            <h2>SHTMS</h2>
+            <p>School Management System</p>
+        </div>
+    </div>
+
+    <div class="login-header">
+        <h1>Welcome Back 👋</h1>
+        <p>Sign in securely to access your SHTMS dashboard.</p>
+    </div>
+
+    <div id="alertMessage" class="alert"></div>
+
+    <form id="loginForm">
+
+        <div class="form-group login-fields-hidden">
+            <label for="email" class="form-label">Email Address</label>
+            <div class="input-wrapper">
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email address"
+                    required
+                    autocomplete="email"
+                >
+            </div>
+        </div>
+
+        <div class="form-group login-fields-hidden">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-wrapper">
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                    autocomplete="current-password"
+                >
+                <button
+                    type="button"
+                    class="password-toggle"
+                    id="passwordToggle"
+                    aria-label="Show password"
+                >👁️</button>
+            </div>
+        </div>
+
+        <!-- Role selection is used as an access check.
+             The role is determined from the Firebase Authentication email. -->
+        <div class="form-group">
+            <label class="form-label" style="display:block;text-align:center;">Login as</label>
+
+            <div class="role-grid">
+                <div class="role-option">
+                    <input type="radio" id="student" name="role" value="student" checked>
+                    <label for="student"><span>🎓</span><span>Student</span></label>
+                </div>
+
+                <div class="role-option">
+                    <input type="radio" id="lecturer" name="role" value="lecturer">
+                    <label for="lecturer"><span>👨‍🏫</span><span>Lecturer</span></label>
+                </div>
+
+                <div class="role-option">
+                    <input type="radio" id="hod" name="role" value="hod">
+                    <label for="hod"><span>🏛️</span><span>HOD</span></label>
+                </div>
+
+                <div class="role-option">
+                    <input type="radio" id="registrar" name="role" value="registrar">
+                    <label for="registrar"><span>📝</span><span>Registrar</span></label>
+                </div>
+
+                <div class="role-option">
+                    <input type="radio" id="bursary" name="role" value="bursary">
+                    <label for="bursary"><span>💰</span><span>Bursary</span></label>
+                </div>
+
+                <div class="role-option">
+                    <input type="radio" id="admin" name="role" value="admin">
+                    <label for="admin"><span>⚙️</span><span>Admin</span></label>
+                </div>
+            </div>
+
+            <p class="role-note">
+                Your access portal must match the role assigned to your SHTMS login account.
+            </p>
+        </div>
+
+        <div class="form-options">
+            <label class="remember">
+                <input type="checkbox" id="rememberMe">
+                Remember me
+            </label>
+
+            <a href="#" class="forgot-password" id="forgotPassword">
+                Forgot Password?
+            </a>
+        </div>
+
+        <button type="submit" class="login-button" id="loginButton">
+            <span class="spinner" id="spinner"></span>
+            <span id="buttonText">Sign In to Dashboard</span>
+        </button>
+
+    </form>
+
+    <div class="divider">Secure Institutional Portal</div>
+
+    <div class="support">
+        Need help accessing your account?
+        <a href="#" id="supportLink">Contact Support</a>
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- ==================================================
+     SHTMS REAL FIREBASE AUTHENTICATION
+================================================== -->
+
+<script type="module">
+/* ==================================================
+   SHTMS STANDALONE FIREBASE AUTHENTICATION
+   No Firestore required for this first-stage login.
+================================================== */
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    onAuthStateChanged,
+    setPersistence,
+    browserLocalPersistence,
+    browserSessionPersistence,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+/* ==================================================
+   FIREBASE CONFIGURATION
+================================================== */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDfHJaoVA7eQKWWq71zn2bQOpR4Vot9v8c",
+    authDomain: "smsh-282c0.firebaseapp.com",
+    projectId: "smsh-282c0",
+    storageBucket: "smsh-282c0.firebasestorage.app",
+    messagingSenderId: "477828256463",
+    appId: "1:477828256463:web:80a6755b679f585c73ddba"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+
+
+/* ==================================================
+   SHTMS ROLE ACCOUNTS
+   The role is determined by the authenticated email.
+================================================== */
+
+
+function revealLoginFields() {
+    document.querySelectorAll(".login-fields-hidden").forEach((el) => {
+        el.classList.remove("login-fields-hidden");
+        el.classList.add("login-fields-visible");
+    });
+}
+
+const ROLE_ACCOUNTS = {
+    "admin@shtms.com": "admin",
+    "registrar@shtms.com": "registrar",
+    "hod@shtms.com": "hod",
+    "lecturer@shtms.com": "lecturer",
+    "bursary@shtms.com": "bursary",
+    "student@shtms.com": "student"
+};
+
+
+/* ==================================================
+   DOM ELEMENTS
+================================================== */
+
+const loginForm = document.getElementById("loginForm");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const passwordToggle = document.getElementById("passwordToggle");
+const loginButton = document.getElementById("loginButton");
+const spinner = document.getElementById("spinner");
+const buttonText = document.getElementById("buttonText");
+const alertMessage = document.getElementById("alertMessage");
+const forgotPassword = document.getElementById("forgotPassword");
+const rememberMe = document.getElementById("rememberMe");
+const supportLink = document.getElementById("supportLink");
+
+
+/* ==================================================
+   ROLE NAMES
+================================================== */
+
+function formatRole(role) {
+
+    const names = {
+        student: "Student",
+        lecturer: "Lecturer",
+        hod: "Head of Department",
+        registrar: "Registrar",
+        bursary: "Bursary Staff",
+        admin: "Administrator"
+    };
+
+    return names[role] || role;
+}
+
+
+/* ==================================================
+   GET ROLE FROM AUTHENTICATED EMAIL
+================================================== */
+
+function getRoleFromEmail(email) {
+
+    if (!email) return null;
+
+    return ROLE_ACCOUNTS[email.trim().toLowerCase()] || null;
+}
+
+
+/* ==================================================
+   ERROR MESSAGES
+================================================== */
+
+function getFriendlyAuthError(error) {
+
+    switch (error.code) {
+
+        case "auth/invalid-credential":
+            return "Incorrect email or password. Please check your login details.";
+
+        case "auth/invalid-email":
+            return "Please enter a valid email address.";
+
+        case "auth/user-disabled":
+            return "This account has been disabled. Please contact the SHTMS administrator.";
+
+        case "auth/too-many-requests":
+            return "Too many unsuccessful attempts. Please wait a moment and try again.";
+
+        case "auth/network-request-failed":
+            return "Network connection failed. Please check your internet connection.";
+
+        case "auth/user-not-found":
+            return "No SHTMS account was found with this email address.";
+
+        case "auth/wrong-password":
+            return "Incorrect password. Please try again.";
+
+        default:
+            return error.message || "Unable to sign in. Please try again.";
+    }
+}
+
+
+/* ==================================================
+   ALERT SYSTEM
+================================================== */
+
+let alertTimer;
+
+function showAlert(message, type = "error") {
+
+    clearTimeout(alertTimer);
+
+    alertMessage.textContent = message;
+    alertMessage.className = `alert ${type}`;
+
+    alertTimer = setTimeout(() => {
+        alertMessage.className = "alert";
+    }, 6000);
+}
+
+
+function clearAlert() {
+
+    clearTimeout(alertTimer);
+
+    alertMessage.className = "alert";
+    alertMessage.textContent = "";
+}
+
+
+/* ==================================================
+   LOADING STATE
+================================================== */
+
+function setLoading(isLoading) {
+
+    loginButton.disabled = isLoading;
+
+    spinner.style.display =
+        isLoading ? "block" : "none";
+
+    buttonText.textContent =
+        isLoading
+            ? "Signing In..."
+            : "Sign In to Dashboard";
+}
+
+
+/* ==================================================
+   REMEMBER EMAIL
+================================================== */
+
+const savedEmail =
+    localStorage.getItem("shtmsRememberedEmail");
+
+if (savedEmail) {
+
+    emailInput.value = savedEmail;
+    rememberMe.checked = true;
+}
+
+
+function saveOrRemoveEmail(email) {
+
+    if (rememberMe.checked) {
+
+        localStorage.setItem(
+            "shtmsRememberedEmail",
+            email
+        );
+
+    } else {
+
+        localStorage.removeItem(
+            "shtmsRememberedEmail"
+        );
+    }
+}
+
+
+/* ==================================================
+   PASSWORD VISIBILITY
+================================================== */
+
+passwordToggle.addEventListener("click", () => {
+
+    const isPassword =
+        passwordInput.type === "password";
+
+    passwordInput.type =
+        isPassword ? "text" : "password";
+
+    passwordToggle.textContent =
+        isPassword ? "🙈" : "👁️";
+
+    passwordToggle.setAttribute(
+        "aria-label",
+        isPassword ? "Hide password" : "Show password"
+    );
+});
+
+
+/* ==================================================
+   STAGE-ONE DASHBOARD PLACEHOLDER
+   Dashboards have not been created yet.
+================================================== */
+
+function showDashboardComingSoon(role) {
+
+    const roleName = formatRole(role);
+
+    showAlert(
+        `Login successful as ${roleName}. Your ${roleName} dashboard will be available when it is created.`,
+        "success"
+    );
+
+    setLoading(false);
+}
+
+
+/* ==================================================
+   LOGIN
+================================================== */
+
+loginForm.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+    clearAlert();
+
+    const email =
+        emailInput.value.trim().toLowerCase();
+
+    const password =
+        passwordInput.value;
+
+    const selectedRole =
+        document.querySelector(
+            'input[name="role"]:checked'
+        )?.value;
+
+
+    if (!email) {
+
+        showAlert(
+            "Please enter your email address."
+        );
+
+        emailInput.focus();
+        return;
+    }
+
+
+    if (!password) {
+
+        showAlert(
+            "Please enter your password."
+        );
+
+        passwordInput.focus();
+        return;
+    }
+
+
+    /*
+     * Do NOT reject the email before Firebase Authentication.
+     * Firebase must be allowed to verify the real account first.
+     * This also makes the error message much more useful if the
+     * email in Firebase is different from the one being typed.
+     */
+
+    setLoading(true);
+
+
+    try {
+
+        /*
+         * Remember Me controls Firebase Auth persistence.
+         */
+
+        await setPersistence(
+            auth,
+            rememberMe.checked
+                ? browserLocalPersistence
+                : browserSessionPersistence
+        );
+
+
+        const credential =
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+        const authenticatedEmail =
+            credential.user.email?.trim().toLowerCase();
+
+
+        const actualRole =
+            getRoleFromEmail(authenticatedEmail);
+
+
+        if (!actualRole) {
+
+            await signOut(auth);
+
+            showAlert(
+                `Firebase login succeeded, but this email (${authenticatedEmail}) is not one of the six SHTMS role accounts. Check the email exactly as it appears in Firebase Authentication.`,
+                "error"
+            );
+
+            setLoading(false);
+            return;
+        }
+
+
+        if (actualRole !== selectedRole) {
+
+            await signOut(auth);
+
+            showAlert(
+                `This account is registered as ${formatRole(actualRole)}, not ${formatRole(selectedRole)}.`,
+                "error"
+            );
+
+            setLoading(false);
+            return;
+        }
+
+
+        saveOrRemoveEmail(authenticatedEmail);
+
+
+        showDashboardComingSoon(actualRole);
+
+
+    } catch (error) {
+
+        console.error(
+            "SHTMS Login Error:",
+            error
+        );
+
+        showAlert(
+            getFriendlyAuthError(error)
+        );
+
+        setLoading(false);
+    }
+
+});
+
+
+/* ==================================================
+   FORGOT PASSWORD
+================================================== */
+
+forgotPassword.addEventListener("click", async (event) => {
+
+    event.preventDefault();
+
+    clearAlert();
+
+    const email =
+        emailInput.value.trim().toLowerCase();
+
+
+    if (!email) {
+
+        showAlert(
+            "Enter your registered email address first, then click Forgot Password."
+        );
+
+        emailInput.focus();
+        return;
+    }
+
+
+    if (!getRoleFromEmail(email)) {
+
+        showAlert(
+            "Please enter one of your registered SHTMS account emails."
+        );
+
+        emailInput.focus();
+        return;
+    }
+
+
+    const originalText =
+        forgotPassword.textContent;
+
+    forgotPassword.textContent =
+        "Sending...";
+
+    forgotPassword.style.pointerEvents =
+        "none";
+
+
+    try {
+
+        await sendPasswordResetEmail(
+            auth,
+            email
+        );
+
+        showAlert(
+            "Password reset instructions have been sent to your email address.",
+            "success"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Password Reset Error:",
+            error
+        );
+
+        showAlert(
+            getFriendlyAuthError(error)
+        );
+
+    } finally {
+
+        forgotPassword.textContent =
+            originalText;
+
+        forgotPassword.style.pointerEvents =
+            "auto";
+    }
+
+});
+
+
+/* ==================================================
+   SUPPORT
+================================================== */
+
+supportLink.addEventListener("click", (event) => {
+
+    event.preventDefault();
+
+    showAlert(
+        "Please contact your institution's SHTMS administrator for account assistance.",
+        "success"
+    );
+});
+
+
+/* ==================================================
+   EXISTING SESSION CHECK
+================================================== */
+
+let checkingExistingSession = true;
+
+setLoading(true);
+
+
+onAuthStateChanged(auth, (user) => {
+
+    if (!user) {
+
+        checkingExistingSession = false;
+        setLoading(false);
+        return;
+    }
+
+
+    const role =
+        getRoleFromEmail(user.email);
+
+
+    if (!role) {
+
+        signOut(auth).catch(() => {});
+
+        checkingExistingSession = false;
+        setLoading(false);
+
+        showAlert(
+            "This Firebase account is not configured as an SHTMS account."
+        );
+
+        return;
+    }
+
+
+    /*
+     * Dashboards do not exist yet, so we do not redirect.
+     * The authenticated session remains active.
+     */
+
+    checkingExistingSession = false;
+    setLoading(false);
+
+});
+
+document.querySelectorAll('input[name="role"], .role-option label').forEach((el) => {
+    el.addEventListener("click", revealLoginFields);
+    el.addEventListener("change", revealLoginFields);
+});
+
+</script>
+
+</body>
+</html>
