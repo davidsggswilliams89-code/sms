@@ -1,10 +1,10 @@
-SHTMS ADMIN NAVIGATION CONNECTION
-=================================
+SHTMS ADMIN CONNECTED - FIXED VERSION
 
-Admin login:
-index.html -> SHTMS-admin-dashboard.html
+Open index.html first.
+Login with an SHTMS admin account.
+The Admin Dashboard uses direct HTML links (not competing JavaScript click handlers).
 
-Admin dashboard navigation:
+Dashboard routes:
 Dashboard -> SHTMS-admin-dashboard.html
 Students -> admin-student.html
 Lecturers -> lecturer.html
@@ -17,7 +17,4 @@ User Management -> user-management.html
 Reports -> reports.html
 Settings -> settings.html
 
-The supplied Courses and Results pages keep their existing functionality.
-User Management was upgraded from a static page to an authenticated admin module.
-Pages not supplied in the upload were created as connected placeholders so every
-dashboard button has a real target and can later be replaced by the full module.
+IMPORTANT: Keep every HTML file in the SAME folder. Do not open individual pages from different folders.
