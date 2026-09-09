@@ -65,6 +65,13 @@ button{font:inherit}
 .profile div:last-child{display:none}
 }
 @media(max-width:450px){.stats{grid-template-columns:1fr}.quick{grid-template-columns:1fr}.page-title p{display:none}}
+
+.nav-link{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;color:#cbd5e1;text-align:left;padding:12px;border-radius:9px;cursor:pointer;margin-bottom:3px;font-size:13px;text-decoration:none}
+.nav-link:hover,.nav-link.active{background:#1e3a8a;color:#fff}
+.nav-link .icon{width:22px;text-align:center;font-size:17px}
+.quick-link{display:block;border:1px solid var(--border);background:#fff;padding:17px 10px;border-radius:11px;cursor:pointer;color:var(--text);font-size:12px;text-decoration:none;text-align:center}
+.quick-link:hover{border-color:#93c5fd;background:#eff6ff}
+.quick-link span{display:block;font-size:22px;margin-bottom:8px}
 </style>
 <style>
 .shtms-logout-btn{position:fixed;right:24px;top:18px;z-index:1000;border:1px solid #dbe3ef;background:#fff;color:#1e293b;border-radius:10px;padding:10px 15px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(15,23,42,.08)}
@@ -87,23 +94,23 @@ button{font:inherit}
 
   <nav class="nav">
     <div class="nav-label">Main Menu</div>
-    <button class="active" data-page="Dashboard"><span class="icon">📊</span>Dashboard</button>
-    <button data-page="Students"><span class="icon">🎓</span>Students</button>
-    <button data-page="Lecturers"><span class="icon">👨‍🏫</span>Lecturers</button>
-    <button data-page="Departments"><span class="icon">🏛️</span>Departments</button>
-    <button data-page="Programmes"><span class="icon">📚</span>Programmes</button>
-    <button data-page="Courses"><span class="icon">📖</span>Courses</button>
-    <button data-page="Results"><span class="icon">📝</span>Results</button>
-    <button data-page="Payments"><span class="icon">💰</span>Payments</button>
+    <a class="nav-link active" data-page="Dashboard" href="SHTMS-admin-dashboard.html"><span class="icon">📊</span>Dashboard</a>
+    <a class="nav-link" data-page="Students" href="students.html"><span class="icon">🎓</span>Students</a>
+    <a class="nav-link" data-page="Lecturers" href="lecturer.html"><span class="icon">👨‍🏫</span>Lecturers</a>
+    <a class="nav-link" data-page="Departments" href="department.html"><span class="icon">🏛️</span>Departments</a>
+    <a class="nav-link" data-page="Programmes" href="programmes.html"><span class="icon">📚</span>Programmes</a>
+    <a class="nav-link" data-page="Courses" href="courses.html"><span class="icon">📖</span>Courses</a>
+    <a class="nav-link" data-page="Results" href="results.html"><span class="icon">📝</span>Results</a>
+    <a class="nav-link" data-page="Payments" href="payments.html"><span class="icon">💰</span>Payments</a>
 
     <div class="nav-label" style="margin-top:18px">Administration</div>
-    <button data-page="Users"><span class="icon">👥</span>User Management</button>
-    <button data-page="Reports"><span class="icon">📈</span>Reports</button>
-    <button data-page="Settings"><span class="icon">⚙️</span>Settings</button>
+    <a class="nav-link" data-page="Users" href="user-management.html"><span class="icon">👥</span>User Management</a>
+    <a class="nav-link" data-page="Reports" href="reports.html"><span class="icon">📈</span>Reports</a>
+    <a class="nav-link" data-page="Settings" href="settings.html"><span class="icon">⚙️</span>Settings</a>
   </nav>
 
   <div class="sidebar-bottom">
-    <button class="logout" onclick="alert('Logout will be connected to Firebase Authentication.')">↪ Sign Out</button>
+    <button class="logout" onclick="shtmsLogout()">↪ Sign Out</button>
   </div>
 </aside>
 
@@ -159,12 +166,12 @@ button{font:inherit}
   <div class="card" style="margin-top:20px">
     <div class="card-head"><h3>Quick Actions</h3></div>
     <div class="quick">
-      <button onclick="window.location.assign('admin-student.html')"><span>🎓</span>Add Student</button>
-      <button onclick="window.location.assign('lecturer.html')"><span>👨‍🏫</span>Add Lecturer</button>
-      <button onclick="window.location.assign('department.html')"><span>🏛️</span>Create Department</button>
-      <button onclick="window.location.assign('courses.html')"><span>📚</span>Create Course</button>
-      <button onclick="window.location.assign('reports.html')"><span>📈</span>Generate Report</button>
-      <button onclick="window.location.assign('settings.html')"><span>⚙️</span>System Settings</button>
+      <a class="quick-link" href="students.html"><span>🎓</span>Add Student</a>
+      <a class="quick-link" href="lecturer.html"><span>👨‍🏫</span>Add Lecturer</a>
+      <a class="quick-link" href="department.html"><span>🏛️</span>Create Department</a>
+      <a class="quick-link" href="courses.html"><span>📚</span>Create Course</a>
+      <a class="quick-link" href="reports.html"><span>📈</span>Generate Report</a>
+      <a class="quick-link" href="settings.html"><span>⚙️</span>System Settings</a>
     </div>
   </div>
 </section>
@@ -174,31 +181,7 @@ button{font:inherit}
 <script>
 const date = new Date();
 document.getElementById('date').textContent = date.toLocaleDateString('en-NG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-
-document.querySelectorAll('.nav button[data-page]').forEach(btn=>{
-  btn.onclick=function(event){
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    const routes={
-      Dashboard:'SHTMS-admin-dashboard.html',
-      Students:'admin-student.html',
-      Lecturers:'lecturer.html',
-      Departments:'department.html',
-      Programmes:'programmes.html',
-      Courses:'courses.html'
-    };
-    const target=routes[this.dataset.page];
-    if(target){ window.location.assign(target); return false; }
-    document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
-    this.classList.add('active');
-    document.getElementById('pageHeading').textContent=this.dataset.page;
-    alert(this.dataset.page+' module is ready for the next development stage.');
-    document.getElementById('sidebar').classList.remove('open');
-    return false;
-  };
-});
 document.getElementById('menu').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('open'));
-function notify(name){alert(name + ' will be connected to the SHTMS database in the next stage.');}
 </script>
 
 <script type="module">
@@ -410,21 +393,6 @@ seedStudents();renderStudents();
 
 
 <script>/* Navigation is handled by the main dashboard script above. */</script>
-
-<script id="shtms-navigation">
-(function(){
-  const routes = {'Dashboard': 'SHTMS-admin-dashboard.html', 'Students': 'admin-student.html', 'Lecturers': 'lecturer.html', 'Departments': 'department.html', 'Programmes': 'programmes.html', 'Courses': 'courses.html', 'Results': 'results.html', 'Payments': 'payments.html', 'Users': 'user-management.html', 'User Management': 'user-management.html', 'Reports': 'reports.html', 'Settings': 'settings.html'};
-  document.addEventListener("click", function(e){
-    const b = e.target.closest && e.target.closest("[data-page]");
-    if (!b) return;
-    const target = routes[b.dataset.page];
-    if (!target) return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    window.location.assign(target);
-  }, true);
-})();
-</script>
 
 </body>
 </html>

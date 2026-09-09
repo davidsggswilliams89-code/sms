@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SHTMS | Students</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:#f8fafc;color:#172033}
+.wrap{max-width:850px;margin:70px auto;padding:20px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:35px;text-align:center;box-shadow:0 8px 25px rgba(15,23,42,.06)}
+h1{margin:0 0 10px}
+p{color:#64748b;line-height:1.6}
+a{display:inline-block;margin-top:15px;padding:11px 16px;border-radius:9px;background:#2563eb;color:#fff;text-decoration:none;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div style="font-size:48px">🎓</div>
+    <h1>Students</h1>
+    <p>Manage student records, profiles, programmes, levels and student status.</p>
+    <p>This page is connected to the Admin Dashboard. The detailed student module can be implemented here without changing the dashboard routing.</p>
+    <a href="SHTMS-admin-dashboard.html">← Back to Admin Dashboard</a>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+/* Use the same Firebase configuration as index.html. */
+const firebaseConfig = {
+  apiKey: "AIzaSyDfHJaoVA7eQKWWq71zn2bQOpR4Vot9v8c",
+  authDomain: "smsh-282c0.firebaseapp.com",
+  projectId: "smsh-282c0",
+  storageBucket: "smsh-282c0.firebasestorage.app",
+  messagingSenderId: "477828256463",
+  appId: "1:477828256463:web:80a6755b679f585c73ddba"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const roles = {
+  "admin@shtms.com": "admin",
+  "registrar@shtms.com": "registrar",
+  "hod@shtms.com": "hod",
+  "lecturer@shtms.com": "lecturer",
+  "bursary@shtms.com": "bursary",
+  "student@shtms.com": "student"
+};
+
+onAuthStateChanged(auth, (user) => {
+  const email = (user?.email || "").trim().toLowerCase();
+
+  if (!user || roles[email] !== "admin") {
+    signOut(auth).catch(() => {});
+    window.location.href = "index.html";
+    return;
+  }
+});
+
+window.shtmsLogout = async function () {
+  await signOut(auth);
+  sessionStorage.clear();
+  window.location.href = "index.html";
+};
+</script>
+</body>
+</html>
