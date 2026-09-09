@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHTMS | Department Management</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f8fafc;color:#172033;visibility:hidden}
+:root{--navy:#0b1428;--blue:#2563eb;--line:#e5eaf1;--muted:#64748b}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:258px;background:#0b1428;color:#fff;z-index:50;padding:28px 10px 14px;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:12px;padding:0 9px 25px}.logo{width:43px;height:43px;border-radius:10px;background:#fff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}.brand h2{font-size:18px;margin:0}.brand p{font-size:9px;line-height:1.2;color:#a9b4c7;margin:2px 0 0;max-width:110px}.menu-title{font-size:9px;letter-spacing:1.1px;color:#6f7b90;margin:12px 10px 9px}.nav{display:flex;flex-direction:column;gap:4px}.nav button{border:0;background:transparent;color:#c8d0dd;text-align:left;padding:11px 12px;border-radius:9px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:11px}.nav button:hover{background:#17243d;color:#fff}.nav button.active{background:#214fc2;color:#fff}.ico{width:18px;text-align:center;font-size:16px}.spacer{flex:1}.signout{border:0;background:#17243d;color:#d7deea;padding:11px;border-radius:8px;cursor:pointer;font-size:13px}
+.main{margin-left:258px;min-height:100vh}.top{height:91px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 31px;position:sticky;top:0;z-index:20}.heading h1{font-size:23px;margin:0 0 4px}.heading p{font-size:12px;color:#64748b;margin:0}.top-right{display:flex;align-items:center;gap:10px}.avatar{width:34px;height:34px;border-radius:50%;background:#e8f0ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-weight:700}.logout-top{border:1px solid #e4e8ef;background:#fff;border-radius:8px;padding:10px 14px;font-weight:700;color:#263244;cursor:pointer}
+.content{padding:25px 31px 45px}.welcome{background:linear-gradient(110deg,#2563eb,#1f55d7);color:#fff;border-radius:15px;padding:20px 27px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;box-shadow:0 4px 10px rgba(37,99,235,.15)}.welcome h2{font-size:22px;margin:0 0 6px}.welcome p{font-size:12px;margin:0;color:#dce8ff}.date{font-size:11px;color:#dce8ff}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px;box-shadow:0 2px 6px rgba(15,23,42,.03)}.card small{display:block;color:#64748b;font-size:11px;margin-bottom:7px}.card strong{font-size:24px}
+.toolbar{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px;display:grid;grid-template-columns:1fr 190px 170px;gap:10px;margin-bottom:18px}.toolbar input,.toolbar select{border:1px solid #d5dce6;border-radius:8px;padding:11px 12px;background:#fff;outline:none;font-size:12px}
+.table-card{background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden}.table-head{padding:17px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.table-head h3{font-size:15px;margin:0}.add{border:0;background:#2563eb;color:#fff;border-radius:8px;padding:10px 13px;font-weight:700;cursor:pointer}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:900px}.table th,.table td{padding:13px 14px;border-bottom:1px solid #edf0f4;text-align:left;font-size:11px}.table th{background:#f8fafc;color:#667085;font-weight:700}.table td{color:#344054}.pill{display:inline-block;padding:5px 9px;border-radius:20px;font-size:10px;font-weight:700;background:#dcfce7;color:#166534}.pill.inactive{background:#fee2e2;color:#991b1b}.action{border:0;background:#eef4ff;color:#1d4ed8;border-radius:6px;padding:6px 8px;font-size:10px;cursor:pointer;margin-right:4px}.action.del{background:#fff0f0;color:#b42318}.empty{text-align:center;padding:45px;color:#64748b;font-size:13px}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.58);display:none;align-items:center;justify-content:center;padding:18px;z-index:100}.modal-box{width:min(760px,100%);max-height:94vh;overflow:auto;background:#fff;border-radius:15px;padding:24px}.modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}.modal-head h2{font-size:19px;margin:0 0 5px}.modal-head p{font-size:12px;color:#64748b;margin:0}.close{border:0;background:#f1f5f9;border-radius:8px;width:36px;height:36px;font-size:22px;cursor:pointer}.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.form label{font-size:11px;font-weight:700;color:#344054}.form input,.form select,.form textarea{display:block;width:100%;margin-top:6px;padding:10px;border:1px solid #d5dce6;border-radius:8px;background:#fff;font:inherit}.form textarea{min-height:90px;resize:vertical}.full{grid-column:1/-1}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}.cancel{border:0;background:#e9edf3;padding:10px 14px;border-radius:8px;font-weight:700}.save{border:0;background:#2563eb;color:#fff;padding:10px 14px;border-radius:8px;font-weight:700}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.detail-item{background:#f8fafc;padding:12px;border-radius:8px}.detail-item small{display:block;color:#64748b;margin-bottom:4px}
+@media(max-width:900px){.sidebar{width:215px}.main{margin-left:215px}.cards{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr 1fr}.top{padding:0 20px}.content{padding:20px}}@media(max-width:650px){.sidebar{position:static;width:100%;height:auto;min-height:0}.main{margin-left:0}.nav{display:grid;grid-template-columns:1fr 1fr}.spacer{display:none}.signout{margin-top:15px}.top{height:auto;padding:15px 16px}.content{padding:15px}.cards{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr}.welcome{align-items:flex-start;gap:12px;flex-direction:column}.form,.detail-grid{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+<div class="brand"><div class="logo">S</div><div><h2>SHTMS</h2><p>School Higher Tertiary<br>Management System</p></div></div>
+<div class="menu-title">MAIN MENU</div>
+<nav class="nav">
+<button data-page="Dashboard"><span class="ico">📊</span>Dashboard</button>
+<button data-page="Students"><span class="ico">🎓</span>Students</button>
+<button data-page="Lecturers"><span class="ico">👨‍🏫</span>Lecturers</button>
+<button class="active" data-page="Departments"><span class="ico">🏛️</span>Departments</button>
+<button data-page="Programmes"><span class="ico">📚</span>Programmes</button>
+<button data-page="Courses"><span class="ico">📖</span>Courses</button>
+<button data-page="Results"><span class="ico">📝</span>Results</button>
+<button data-page="Payments"><span class="ico">💰</span>Payments</button>
+</nav>
+<div class="menu-title">ADMINISTRATION</div><nav class="nav">
+<button data-page="User Management"><span class="ico">👥</span>User Management</button><button data-page="Reports"><span class="ico">📈</span>Reports</button><button data-page="Settings"><span class="ico">⚙️</span>Settings</button>
+</nav>
+<div class="spacer"></div><button class="signout" onclick="logout()">↪ &nbsp; Sign Out</button>
+</aside>
+
+<section class="main">
+<header class="top"><div class="heading"><h1>Departments</h1><p>SHTMS administration and institutional overview</p></div><div class="top-right"><div class="avatar">A</div><button class="logout-top" onclick="logout()">↪ &nbsp; Logout</button></div></header>
+<div class="content">
+<div class="welcome"><div><h2>Welcome back, Administrator 👋</h2><p>Manage academic departments and their institutional records.</p></div><div class="date" id="today"></div></div>
+<div class="cards"><div class="card"><small>Total Departments</small><strong id="total">0</strong></div><div class="card"><small>Active Departments</small><strong id="active">0</strong></div><div class="card"><small>Total Programmes</small><strong id="programmes">0</strong></div><div class="card"><small>Total Students</small><strong id="students">0</strong></div></div>
+<div class="toolbar"><input id="search" placeholder="Search department code, name or head..." oninput="render()"><select id="statusFilter" onchange="render()"><option value="">All Status</option><option>Active</option><option>Inactive</option></select><select id="facultyFilter" onchange="render()"><option value="">All Faculties</option><option>School of Computing</option><option>School of Business</option><option>School of Social Sciences</option></select></div>
+<div class="table-card"><div class="table-head"><h3>Department Records</h3><button class="add" onclick="openAdd()">+ Add Department</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Code</th><th>Department Name</th><th>Faculty / School</th><th>Head of Department</th><th>Programmes</th><th>Students</th><th>Status</th><th>Actions</th></tr></thead><tbody id="tbody"></tbody></table><div id="empty" class="empty" style="display:none">No department records found.</div></div></div>
+</div></section>
+
+<div id="modal" class="modal"><div class="modal-box">
+<div class="modal-head"><div><h2 id="modalTitle">Add New Department</h2><p>Enter the department information below.</p></div><button class="close" onclick="closeModal()">×</button></div>
+<form id="form" class="form" onsubmit="save(event)">
+<input type="hidden" id="oldCode">
+<label>Department Code<input id="code" required placeholder="CSC"></label>
+<label>Department Name<input id="name" required placeholder="Computer Science"></label>
+<label>Faculty / School<select id="faculty" required><option value="">Select faculty</option><option>School of Computing</option><option>School of Business</option><option>School of Social Sciences</option></select></label>
+<label>Head of Department<input id="head" placeholder="Name of HOD"></label>
+<label>Number of Programmes<input id="progCount" type="number" min="0" value="0"></label>
+<label>Number of Students<input id="studentCount" type="number" min="0" value="0"></label>
+<label>Status<select id="status"><option>Active</option><option>Inactive</option></select></label>
+<label class="full">Description<textarea id="description" placeholder="Brief department description"></textarea></label>
+<div class="modal-actions full"><button type="button" class="cancel" onclick="closeModal()">Cancel</button><button class="save" type="submit">Save Department</button></div>
+</form></div></div>
+
+<div id="detailModal" class="modal"><div class="modal-box"><div class="modal-head"><div><h2>Department Details</h2><p>Complete department record.</p></div><button class="close" onclick="closeDetails()">×</button></div><div id="details" class="detail-grid"></div><div class="modal-actions"><button class="cancel" onclick="closeDetails()">Close</button></div></div></div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import{getAuth,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const firebaseConfig={apiKey:"AIzaSyDfHJaoVA7eQKWWq71zn2bQOpR4Vot9v8c",authDomain:"smsh-282c0.firebaseapp.com",projectId:"smsh-282c0",storageBucket:"smsh-282c0.firebasestorage.app",messagingSenderId:"477828256463",appId:"1:477828256463:web:80a6755b679f585c73ddba"};
+const auth=getAuth(initializeApp(firebaseConfig));const roles={"admin@shtms.com":"admin","registrar@shtms.com":"registrar","hod@shtms.com":"hod","lecturer@shtms.com":"lecturer","bursary@shtms.com":"bursary","student@shtms.com":"student"};
+onAuthStateChanged(auth,u=>{if(!u||roles[(u.email||"").toLowerCase()]!=="admin"){sessionStorage.clear();location.href="index.html";return}document.body.style.visibility="visible";render()});
+window.logout=async()=>{try{await signOut(auth)}finally{sessionStorage.clear();location.href="index.html"}};
+const KEY="shtms_departments";const get=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}},set=v=>localStorage.setItem(KEY,JSON.stringify(v));
+function seed(){if(get().length)return;set([{code:"CSC",name:"Computer Science",faculty:"School of Computing",head:"Dr. Ibrahim Musa",progCount:4,studentCount:320,status:"Active",description:"Department responsible for computing and information technology programmes."},{code:"BAM",name:"Business Administration",faculty:"School of Business",head:"Dr. Aisha Bello",progCount:3,studentCount:285,status:"Active",description:"Department offering business and management programmes."},{code:"ACC",name:"Accounting",faculty:"School of Business",head:"Mr. Yusuf Abdullahi",progCount:2,studentCount:240,status:"Active",description:"Department focused on accounting and financial studies."},{code:"PAD",name:"Public Administration",faculty:"School of Social Sciences",head:"Dr. Sani Umar",progCount:2,studentCount:198,status:"Active",description:"Department focused on public administration and governance."}])}
+const esc=v=>String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+window.render=()=>{const q=document.getElementById("search").value.toLowerCase(),st=document.getElementById("statusFilter").value,f=document.getElementById("facultyFilter").value,a=get(),list=a.filter(x=>(!q||[x.code,x.name,x.faculty,x.head].join(" ").toLowerCase().includes(q))&&(!st||x.status===st)&&(!f||x.faculty===f));document.getElementById("tbody").innerHTML=list.map(x=>`<tr><td><b>${esc(x.code)}</b></td><td>${esc(x.name)}</td><td>${esc(x.faculty)}</td><td>${esc(x.head||"-")}</td><td>${esc(x.progCount)}</td><td>${esc(x.studentCount)}</td><td><span class="pill ${x.status==="Inactive"?"inactive":""}">${esc(x.status)}</span></td><td><button class="action" onclick="view('${encodeURIComponent(x.code)}')">View</button><button class="action" onclick="edit('${encodeURIComponent(x.code)}')">Edit</button><button class="action del" onclick="removeDepartment('${encodeURIComponent(x.code)}')">Delete</button></td></tr>`).join("");document.getElementById("empty").style.display=list.length?"none":"block";document.getElementById("total").textContent=a.length;document.getElementById("active").textContent=a.filter(x=>x.status==="Active").length;document.getElementById("programmes").textContent=a.reduce((n,x)=>n+Number(x.progCount||0),0);document.getElementById("students").textContent=a.reduce((n,x)=>n+Number(x.studentCount||0),0)};
+window.openAdd=()=>{document.getElementById("form").reset();document.getElementById("oldCode").value="";document.getElementById("progCount").value=0;document.getElementById("studentCount").value=0;document.getElementById("modalTitle").textContent="Add New Department";document.getElementById("modal").style.display="flex"};
+window.closeModal=()=>document.getElementById("modal").style.display="none";
+window.edit=e=>{const x=get().find(v=>v.code===decodeURIComponent(e));if(!x)return;openAdd();document.getElementById("modalTitle").textContent="Edit Department";document.getElementById("oldCode").value=x.code;document.getElementById("code").value=x.code;document.getElementById("name").value=x.name;document.getElementById("faculty").value=x.faculty;document.getElementById("head").value=x.head||"";document.getElementById("progCount").value=x.progCount||0;document.getElementById("studentCount").value=x.studentCount||0;document.getElementById("status").value=x.status||"Active";document.getElementById("description").value=x.description||""};
+window.save=e=>{e.preventDefault();const old=document.getElementById("oldCode").value,x={code:document.getElementById("code").value.trim().toUpperCase(),name:document.getElementById("name").value.trim(),faculty:document.getElementById("faculty").value,head:document.getElementById("head").value.trim(),progCount:document.getElementById("progCount").value,studentCount:document.getElementById("studentCount").value,status:document.getElementById("status").value,description:document.getElementById("description").value.trim()};let a=get();if(!old&&a.some(v=>v.code.toLowerCase()===x.code.toLowerCase()))return alert("That department code already exists.");set(old?a.map(v=>v.code===old?x:v):[...a,x]);closeModal();render();alert(old?"Department updated successfully.":"Department added successfully.")};
+window.removeDepartment=e=>{const code=decodeURIComponent(e);if(confirm("Delete this department record? This action cannot be undone.")){set(get().filter(x=>x.code!==code));render()}};
+window.view=e=>{const x=get().find(v=>v.code===decodeURIComponent(e));if(!x)return;document.getElementById("details").innerHTML=Object.entries({code:"Department Code",name:"Department Name",faculty:"Faculty / School",head:"Head of Department",progCount:"Programmes",studentCount:"Students",status:"Status",description:"Description"}).map(([k,v])=>`<div class="detail-item"><small>${v}</small><b>${esc(x[k]||"-")}</b></div>`).join("");document.getElementById("detailModal").style.display="flex"};
+window.closeDetails=()=>document.getElementById("detailModal").style.display="none";
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>{const p=b.dataset.page;if(p==="Dashboard")location.href="SHTMS-admin-dashboard.html";else if(p==="Students")location.href="admin-student.html";else if(p==="Lecturers")location.href="lecturer.html";else if(p==="Payments")location.href="payments.html";else if(p!=="Departments")alert(p+" module is ready for the next development stage.")}));
+document.getElementById("today").textContent=new Date().toLocaleDateString("en-NG",{weekday:"long",day:"numeric",month:"long",year:"numeric"});seed();
+</script>
+
+
+
+
+
+<script id="shtms-integrated-navigation">(function(){const R={'Dashboard': 'SHTMS-admin-dashboard.html', 'Students': 'admin-student.html', 'Lecturers': 'lecturer.html', 'Departments': 'department.html', 'Programmes': 'programmes.html', 'Courses': 'courses.html', 'Results': 'results.html', 'Payments': 'payments.html'};document.addEventListener('click',function(e){const b=e.target.closest&&e.target.closest('.nav button[data-page]');if(!b)return;const t=R[b.dataset.page];if(t){e.preventDefault();e.stopImmediatePropagation();window.location.assign(t)}},true)})();</script>
+</body></html>
