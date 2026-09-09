@@ -1,1 +1,44 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HOD Portal | SHTMS</title><link rel="stylesheet" href="shared/styles.css"><script src="shared/app.js"></script></head><body><div class="app"><aside class="sidebar"><div class="brand">SHTMS</div><div class="role">HOD Portal</div><nav class="nav"><a class="active" href="hod.html">Dashboard</a><a href="departments.html">Department</a><a href="students.html">Students</a><a href="lecturer.html">Staff</a><a href="courses.html">Courses</a><a href="results.html">Verify Results</a><a href="reports.html">Reports</a><a href="announcements.html">Announcements</a><a href="settings.html">Settings</a><a href="#" onclick="logout()">Logout</a></nav></aside><main class="main"><div class="topbar"><div><h1>HOD Portal</h1><p class="small">School of Health & Technology Management System</p></div><span class="badge">Secure Portal</span></div><div class="grid"><div class="card"><div class="small">Department Students</div><div class="stat">0</div></div><div class="card"><div class="small">Lecturers</div><div class="stat">0</div></div><div class="card"><div class="small">Pending Verification</div><div class="stat">0</div></div><div class="card"><div class="small">Department Courses</div><div class="stat">0</div></div></div><section class="section"><div class="card"><h2>Recent Activity</h2><div class="notice">This portal interface is ready for database and Firebase integration. Connect each action to Firestore/API permissions before production use.</div></div></section><section class="section"><div class="table-wrap"><table><thead><tr><th>Date</th><th>Activity</th><th>Status</th></tr></thead><tbody><tr><td>Today</td><td>Portal initialized</td><td>Active</td></tr><tr><td>Today</td><td>Role dashboard loaded</td><td>Completed</td></tr></tbody></table></div></section></main></div><script>protect('hod')</script><script type="module">import { requireAuth } from './shared/auth.js'; requireAuth(['hod']);</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOD Portal | SHTMS</title>
+<link rel="stylesheet" href="./shared/styles.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-icon">S</div><div><div class="brand-title">SHTMS</div><small>HOD Portal</small></div></div>
+  <nav class="nav"><div class="nav-label">Navigation</div><a class="active" href="hod.html">Dashboard</a>
+<a class="" href="students.html">Students</a>
+<a class="" href="lecturer.html">Staff</a>
+<a class="" href="courses.html">Courses</a>
+<a class="" href="results.html">Result Verification</a>
+<a class="" href="reports.html">Reports</a></nav>
+</aside>
+<main class="main">
+  <div class="topbar">
+    <div><button class="mobile-toggle" id="menuBtn">☰</button><h1>HOD Portal</h1><p>School of Health & Technology Management System</p></div>
+    <div class="user-area"><span class="badge">Secure Firebase Portal</span><button class="logout-btn" id="logoutBtn">Logout</button></div>
+  </div>
+  <div class="grid"><div class="card"><div class="small">Department Students</div><div class="stat">0</div></div>
+<div class="card"><div class="small">Lecturers</div><div class="stat">0</div></div>
+<div class="card"><div class="small">Pending Verification</div><div class="stat">0</div></div>
+<div class="card"><div class="small">Active Courses</div><div class="stat">0</div></div></div>
+  <section class="section"><h2 class="section-title">Quick Access</h2><div class="grid"><div class="card"><h3 style="margin-top:0">Department Students</h3><p class="small">This module is ready for Firebase data integration.</p><button class="btn" type="button">Open</button></div>
+<div class="card"><h3 style="margin-top:0">Staff</h3><p class="small">This module is ready for Firebase data integration.</p><button class="btn" type="button">Open</button></div>
+<div class="card"><h3 style="margin-top:0">Courses</h3><p class="small">This module is ready for Firebase data integration.</p><button class="btn" type="button">Open</button></div>
+<div class="card"><h3 style="margin-top:0">Result Verification</h3><p class="small">This module is ready for Firebase data integration.</p><button class="btn" type="button">Open</button></div>
+<div class="card"><h3 style="margin-top:0">Reports</h3><p class="small">This module is ready for Firebase data integration.</p><button class="btn" type="button">Open</button></div>
+<div class="card"><h3 style="margin-top:0">Announcements</h3><p class="small">This module is ready for Firebase data integration.</p><button class="btn" type="button">Open</button></div></div></section>
+  <section class="section"><div class="notice"><strong>Version 2:</strong> The interface and Firebase authentication structure are ready. Connect CRUD actions to Firestore and configure Firebase Security Rules before production use.</div></section>
+  <section class="section"><div class="table-wrap"><table><thead><tr><th>Date</th><th>Activity</th><th>Status</th></tr></thead><tbody><tr><td>Today</td><td>HOD Portal loaded successfully</td><td><span class="status">Ready</span></td></tr><tr><td>Today</td><td>Authentication protection enabled</td><td><span class="status">Secure</span></td></tr></tbody></table></div></section>
+</main></div>
+<script type="module">
+import { requireAuth, logout } from './shared/auth.js';
+requireAuth(['hod']);
+document.getElementById('logoutBtn').addEventListener('click', logout);
+document.getElementById('menuBtn')?.addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('open'));
+</script>
+</body></html>

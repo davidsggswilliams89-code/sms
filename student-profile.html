@@ -1,1 +1,44 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Student Profile | SHTMS</title><link rel="stylesheet" href="shared/styles.css"><script src="shared/app.js"></script></head><body><div class="app"><aside class="sidebar"><div class="brand">SHTMS</div><div class="role">Management System</div><nav class="nav"><a href="admin.html">Admin Dashboard</a><a href="student.html">Student Portal</a><a href="lecturer.html">Lecturer Portal</a><a href="index.html">Login</a></nav></aside><main class="main"><div class="topbar"><div><h1>Student Profile</h1><p class="small">Personal biodata and academic information</p></div><div class="actions"><button class="btn" onclick="alert('Connect this button to Firebase/Firestore before production use.')">Add New</button></div></div><div class="grid"><div class="card"><div class="small">Total Records</div><div class="stat">0</div></div><div class="card"><div class="small">Pending</div><div class="stat">0</div></div><div class="card"><div class="small">Status</div><div class="stat">Ready</div></div></div><section class="section"><div class="table-wrap"><table><thead><tr><th>ID</th><th>Name / Record</th><th>Status</th><th>Action</th></tr></thead><tbody><tr><td>—</td><td>No records loaded yet</td><td>Waiting for database</td><td><button class="btn secondary">View</button></td></tr></tbody></table></div></section></main></div></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student Profile | SHTMS</title>
+<link rel="stylesheet" href="./shared/styles.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-icon">S</div><div><div class="brand-title">SHTMS</div><small>Student Profile</small></div></div>
+  <nav class="nav"><div class="nav-label">Navigation</div><a class="" href="student.html">Dashboard</a>
+<a class="active" href="student-profile.html">My Profile</a>
+<a class="" href="course-registration.html">Course Registration</a>
+<a class="" href="timetable.html">Timetable</a>
+<a class="" href="attendance.html">Attendance</a>
+<a class="" href="results.html">Results</a>
+<a class="" href="fees.html">Fees</a>
+<a class="" href="receipts.html">Receipts</a></nav>
+</aside>
+<main class="main">
+  <div class="topbar">
+    <div><button class="mobile-toggle" id="menuBtn">☰</button><h1>Student Profile</h1><p>School of Health & Technology Management System</p></div>
+    <div class="user-area"><span class="badge">Secure Firebase Portal</span><button class="logout-btn" id="logoutBtn">Logout</button></div>
+  </div>
+  <div class="grid"><div class="card"><div class="small">Profile</div><div class="stat">0</div></div>
+<div class="card"><div class="small">Documents</div><div class="stat">0</div></div>
+<div class="card"><div class="small">Programme</div><div class="stat">0</div></div>
+<div class="card"><div class="small">Status</div><div class="stat">0</div></div></div>
+  <section class="section"><h2 class="section-title">Quick Access</h2><div class="grid"><div class="card"><h3 style="margin-top:0">Biodata</h3><p class="small">This module is ready for Firebase data integration.</p><button class="btn" type="button">Open</button></div>
+<div class="card"><h3 style="margin-top:0">Programme</h3><p class="small">This module is ready for Firebase data integration.</p><button class="btn" type="button">Open</button></div>
+<div class="card"><h3 style="margin-top:0">Documents</h3><p class="small">This module is ready for Firebase data integration.</p><button class="btn" type="button">Open</button></div>
+<div class="card"><h3 style="margin-top:0">Account Settings</h3><p class="small">This module is ready for Firebase data integration.</p><button class="btn" type="button">Open</button></div></div></section>
+  <section class="section"><div class="notice"><strong>Version 2:</strong> The interface and Firebase authentication structure are ready. Connect CRUD actions to Firestore and configure Firebase Security Rules before production use.</div></section>
+  <section class="section"><div class="table-wrap"><table><thead><tr><th>Date</th><th>Activity</th><th>Status</th></tr></thead><tbody><tr><td>Today</td><td>Student Profile loaded successfully</td><td><span class="status">Ready</span></td></tr><tr><td>Today</td><td>Authentication protection enabled</td><td><span class="status">Secure</span></td></tr></tbody></table></div></section>
+</main></div>
+<script type="module">
+import { requireAuth, logout } from './shared/auth.js';
+requireAuth(['student']);
+document.getElementById('logoutBtn').addEventListener('click', logout);
+document.getElementById('menuBtn')?.addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('open'));
+</script>
+</body></html>

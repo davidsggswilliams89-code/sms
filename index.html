@@ -1,16 +1,74 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SHTMS Login</title><link rel="stylesheet" href="shared/styles.css"></head>
-<body><div class="login"><h1>School of Health & Technology</h1><p class="small">Management System Portal</p>
-<label>Email</label><input id="email" type="email" placeholder="name@example.com" autocomplete="email">
-<label>Password</label><input id="password" type="password" placeholder="Password" autocomplete="current-password">
-<button id="loginBtn" class="btn" style="width:100%">Login to Portal</button>
-<button id="resetBtn" style="width:100%;margin-top:10px">Forgot Password?</button>
-<p id="message" class="small"></p><p class="small">Your dashboard is selected automatically from your Firebase user role.</p></div>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHTMS Login | School of Health & Technology</title>
+<link rel="stylesheet" href="./shared/styles.css">
+</head>
+<body class="login-page">
+<div class="login-shell">
+  <section class="login-brand">
+    <div class="logo-mark">S</div>
+    <h1>School of Health & Technology</h1>
+    <p>Management System Portal</p>
+    <p>Secure access for students, lecturers, HODs, registrar, bursary, admissions and administrators.</p>
+  </section>
+  <section class="login-panel">
+    <h2>Welcome back</h2>
+    <p class="subtitle">Sign in to access your authorized portal.</p>
+    <div class="field"><label for="email">Email Address</label><input id="email" type="email" placeholder="name@example.com" autocomplete="email"></div>
+    <div class="field"><label for="password">Password</label><input id="password" type="password" placeholder="Enter your password" autocomplete="current-password"></div>
+    <button class="btn full" id="loginBtn">Login to Portal</button>
+    <button class="btn link" id="resetBtn">Forgot Password?</button>
+    <div id="message" class="message"></div>
+    <p class="help">Your dashboard is selected automatically from your Firebase role stored in Firestore.</p>
+  </section>
+</div>
 <script type="module">
-import { login, resetPassword } from './shared/auth.js';
-const email=document.getElementById('email'), password=document.getElementById('password'), msg=document.getElementById('message');
-const show=(t,err=false)=>{msg.textContent=t; msg.style.color=err?'#b42318':'#067647'};
-document.getElementById('loginBtn').onclick=async()=>{try{show('Signing in...');await login(email.value.trim(),password.value)}catch(e){show(e.message||'Login failed.',true)}};
-document.getElementById('resetBtn').onclick=async()=>{try{await resetPassword(email.value.trim());show('Password reset email sent.')}catch(e){show(e.message||'Could not send reset email.',true)}};
-password.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('loginBtn').click()});
-</script></body></html>
+import { login, resetPassword, watchCurrentUser, getUserRole, ROLE_DASHBOARDS } from './shared/auth.js';
+
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+const message = document.getElementById('message');
+const loginBtn = document.getElementById('loginBtn');
+
+function show(text, error=false){
+  message.textContent = text;
+  message.style.color = error ? '#b42318' : '#067647';
+}
+
+loginBtn.addEventListener('click', async () => {
+  try {
+    loginBtn.disabled = true;
+    show('Signing in...');
+    await login(email.value.trim(), password.value);
+  } catch (error) {
+    show(error.message || 'Login failed.', true);
+    loginBtn.disabled = false;
+  }
+});
+
+document.getElementById('resetBtn').addEventListener('click', async () => {
+  try {
+    await resetPassword(email.value.trim());
+    show('Password reset email sent. Check your inbox.');
+  } catch (error) {
+    show(error.message || 'Could not send reset email.', true);
+  }
+});
+
+password.addEventListener('keydown', e => { if(e.key === 'Enter') loginBtn.click(); });
+
+watchCurrentUser(async user => {
+  if (!user) return;
+  try {
+    const role = await getUserRole(user.uid);
+    window.location.href = ROLE_DASHBOARDS[role];
+  } catch (e) {
+    console.warn(e);
+  }
+});
+</script>
+</body>
+</html>

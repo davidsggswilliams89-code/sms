@@ -1,25 +1,49 @@
-# SHTMS Firebase-Connected Portal Package
+# SHTMS Version 2 — GitHub Pages Ready
 
-## Firebase project
-Project ID: `smsh-282c0`
+## IMPORTANT: Upload structure
+Upload the CONTENTS of this folder to the root of your GitHub repository:
 
-The shared Firebase configuration is in `shared/firebase-config.js`.
+index.html
+admin.html
+student.html
+...all other HTML files...
+shared/
+  styles.css
+  firebase-config.js
+  auth.js
 
-## Before login can work
-1. Enable **Email/Password** in Firebase Authentication.
-2. Create each user in Firebase Authentication.
-3. Create a Firestore collection named `users`.
-4. Create a document whose document ID exactly matches the user's Firebase UID.
-5. Add a `role` field using one of:
-   `student`, `lecturer`, `hod`, `registrar`, `bursary`, `admissions`, `admin`.
+Do NOT upload only index.html.
+Do NOT place the entire project inside an extra folder unless GitHub Pages is configured to publish from that folder.
 
-Example Firestore document:
-```json
-{ "role": "student", "name": "Student Name", "active": true }
-```
+## Firebase setup
+1. Firebase Console → Authentication → Sign-in method.
+2. Enable Email/Password.
+3. Firebase Console → Firestore Database → Create database.
+4. For every Firebase Authentication user, create:
+
+Collection: users
+Document ID: THE USER'S FIREBASE AUTH UID
+
+Example:
+{
+  "role": "student"
+}
+
+Supported roles:
+student
+lecturer
+hod
+registrar
+bursary
+admissions
+admin
 
 ## Important
-The API key identifies the Firebase project for web clients; access control must still be enforced with Firebase Authentication, Firestore Security Rules, and role checks. Do not rely only on hidden pages or JavaScript for security.
+The portals use Firebase Authentication and Firestore role lookup.
+The HTML pages are protected using Firebase auth.js.
+Do not use the old localStorage protection script from Version 1.
 
-## Running locally
-Because this project uses JavaScript modules, run it through a local web server or deploy it to Firebase Hosting/another HTTPS host. Do not rely on opening the HTML files directly with `file://`.
+## GitHub Pages
+Repository → Settings → Pages → Deploy from branch.
+Select the branch and the folder containing index.html.
+After publishing, open the generated GitHub Pages address.
