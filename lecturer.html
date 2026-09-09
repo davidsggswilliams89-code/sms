@@ -89,9 +89,9 @@
 
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import{getAuth,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-const firebaseConfig={apiKey:"AIzaSyDfHJaoVA7eQKWWq71zn2bQOpR4Vot9v8c",authDomain:"smsh-282c0.firebaseapp.com",projectId:"smsh-282c0",storageBucket:"smsh-282c0.firebasestorage.app",messagingSenderId:"477828256463",appId:"1:477828256463:web:80a6755b679f585c73ddba"};
-const auth=getAuth(initializeApp(firebaseConfig));
+import{getAuth,onAuthStateChanged,signOut,setPersistence,browserLocalPersistence}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const firebaseConfig={apiKey:"AIzaSyDfHJaoVE7eQKWWq71zn2bQOpR4Vot9v8c",authDomain:"smsh-282c0.firebaseapp.com",projectId:"smsh-282c0",storageBucket:"smsh-282c0.firebasestorage.app",messagingSenderId:"477828256463",appId:"1:477828256463:web:80a6755b679f585c73ddba"};
+const auth=getAuth(initializeApp(firebaseConfig));setPersistence(auth,browserLocalPersistence).catch(()=>{});
 const roles={"admin@shtms.com":"admin","registrar@shtms.com":"registrar","hod@shtms.com":"hod","lecturer@shtms.com":"lecturer","bursary@shtms.com":"bursary","student@shtms.com":"student"};
 onAuthStateChanged(auth,u=>{if(!u||roles[(u.email||"").toLowerCase()]!=="admin"){sessionStorage.clear();location.href="index.html";return}document.body.style.visibility="visible";render()});
 window.logout=async()=>{try{await signOut(auth)}finally{sessionStorage.clear();location.href="index.html"}};
@@ -110,7 +110,6 @@ window.save=e=>{e.preventDefault();const old=document.getElementById("oldId").va
 window.removeLecturer=e=>{const id=decodeURIComponent(e);if(confirm("Delete this lecturer record? This action cannot be undone.")){set(get().filter(x=>x.id!==id));render()}};
 window.view=e=>{const x=get().find(v=>v.id===decodeURIComponent(e));if(!x)return;document.getElementById("details").innerHTML=Object.entries({id:"Staff ID",name:"Full Name",gender:"Gender",dob:"Date of Birth",department:"Department",rank:"Rank",specialization:"Specialization",qualification:"Qualification",phone:"Phone",email:"Email",status:"Status"}).map(([k,v])=>`<div class="detail-item"><small>${v}</small><b>${esc(x[k]||"-")}</b></div>`).join("");document.getElementById("detailModal").style.display="flex"};
 window.closeDetails=()=>document.getElementById("detailModal").style.display="none";
-document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.page==="Dashboard")location.href="SHTMS-admin-dashboard.html";else if(b.dataset.page==="Students")location.href="admin-student.html";else if(b.dataset.page!=="Lecturers")alert(b.dataset.page+" module is ready for the next development stage.")}));
 document.getElementById("today").textContent=new Date().toLocaleDateString("en-NG",{weekday:"long",day:"numeric",month:"long",year:"numeric"});seed();
 </script>
 
@@ -118,5 +117,20 @@ document.getElementById("today").textContent=new Date().toLocaleDateString("en-N
 
 
 
-<script id="shtms-integrated-navigation">(function(){const R={'Dashboard': 'SHTMS-admin-dashboard.html', 'Students': 'admin-student.html', 'Lecturers': 'lecturer.html', 'Departments': 'department.html', 'Programmes': 'programmes.html', 'Courses': 'courses.html', 'Results': 'results.html', 'Payments': 'payments.html'};document.addEventListener('click',function(e){const b=e.target.closest&&e.target.closest('.nav button[data-page]');if(!b)return;const t=R[b.dataset.page];if(t){e.preventDefault();e.stopImmediatePropagation();window.location.assign(t)}},true)})();</script>
+
+<script id="shtms-navigation">
+(function(){
+  const routes={"Dashboard":"SHTMS-admin-dashboard.html","Students":"admin-student.html","Lecturers":"lecturer.html","Departments":"department.html","Programmes":"programmes.html","Courses":"courses.html","Results":"results.html","Payments":"payments.html","User Management":"user-management.html","Users":"user-management.html","Reports":"reports.html","Settings":"settings.html"};
+  document.addEventListener("click",function(e){
+    const b=e.target.closest&&e.target.closest(".nav button[data-page]");
+    if(!b) return;
+    const target=routes[b.dataset.page];
+    if(target){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      window.location.assign(target);
+    }
+  },true);
+})();
+</script>
 </body></html>

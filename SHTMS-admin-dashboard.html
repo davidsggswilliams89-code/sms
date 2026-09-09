@@ -415,6 +415,21 @@ seedStudents();renderStudents();
 
 
 
-<script id="shtms-integrated-navigation">(function(){const R={'Dashboard': 'SHTMS-admin-dashboard.html', 'Students': 'admin-student.html', 'Lecturers': 'lecturer.html', 'Departments': 'department.html', 'Programmes': 'programmes.html', 'Courses': 'courses.html', 'Results': 'results.html', 'Payments': 'payments.html'};document.addEventListener('click',function(e){const b=e.target.closest&&e.target.closest('.nav button[data-page]');if(!b)return;const t=R[b.dataset.page];if(t){e.preventDefault();e.stopImmediatePropagation();window.location.assign(t)}},true)})();</script>
+
+<script id="shtms-navigation">
+(function(){
+  const routes={"Dashboard":"SHTMS-admin-dashboard.html","Students":"admin-student.html","Lecturers":"lecturer.html","Departments":"department.html","Programmes":"programmes.html","Courses":"courses.html","Results":"results.html","Payments":"payments.html","User Management":"user-management.html","Users":"user-management.html","Reports":"reports.html","Settings":"settings.html"};
+  document.addEventListener("click",function(e){
+    const b=e.target.closest&&e.target.closest(".nav button[data-page]");
+    if(!b) return;
+    const target=routes[b.dataset.page];
+    if(target){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      window.location.assign(target);
+    }
+  },true);
+})();
+</script>
 </body>
 </html>
