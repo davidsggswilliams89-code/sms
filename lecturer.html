@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHTMS | Lecturer Management</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f8fafc;color:#172033;visibility:hidden}
+:root{--navy:#0b1428;--blue:#2563eb;--line:#e5eaf1;--muted:#64748b}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:258px;background:#0b1428;color:#fff;z-index:50;padding:28px 10px 14px;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:12px;padding:0 9px 25px}.logo{width:43px;height:43px;border-radius:10px;background:#fff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}.brand h2{font-size:18px;margin:0}.brand p{font-size:9px;line-height:1.2;color:#a9b4c7;margin:2px 0 0;max-width:110px}
+.menu-title{font-size:9px;letter-spacing:1.1px;color:#6f7b90;margin:12px 10px 9px}.nav{display:flex;flex-direction:column;gap:4px}.nav button{border:0;background:transparent;color:#c8d0dd;text-align:left;padding:11px 12px;border-radius:9px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:11px}.nav button:hover{background:#17243d;color:#fff}.nav button.active{background:#214fc2;color:#fff}.ico{width:18px;text-align:center;font-size:16px}.spacer{flex:1}.signout{border:0;background:#17243d;color:#d7deea;padding:11px;border-radius:8px;cursor:pointer;font-size:13px}
+.main{margin-left:258px;min-height:100vh}.top{height:91px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 31px;position:sticky;top:0;z-index:20}.heading h1{font-size:23px;margin:0 0 4px}.heading p{font-size:12px;color:#64748b;margin:0}.top-right{display:flex;align-items:center;gap:10px}.avatar{width:34px;height:34px;border-radius:50%;background:#e8f0ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-weight:700}.logout-top{border:1px solid #e4e8ef;background:#fff;border-radius:8px;padding:10px 14px;font-weight:700;color:#263244;cursor:pointer}
+.content{padding:25px 31px 45px}.welcome{background:linear-gradient(110deg,#2563eb,#1f55d7);color:#fff;border-radius:15px;padding:20px 27px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;box-shadow:0 4px 10px rgba(37,99,235,.15)}.welcome h2{font-size:22px;margin:0 0 6px}.welcome p{font-size:12px;margin:0;color:#dce8ff}.date{font-size:11px;color:#dce8ff}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px;box-shadow:0 2px 6px rgba(15,23,42,.03)}.card small{display:block;color:#64748b;font-size:11px;margin-bottom:7px}.card strong{font-size:24px}
+.toolbar{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px;display:grid;grid-template-columns:1fr 190px 190px 160px;gap:10px;margin-bottom:18px}.toolbar input,.toolbar select{border:1px solid #d5dce6;border-radius:8px;padding:11px 12px;background:#fff;outline:none;font-size:12px}
+.table-card{background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden}.table-head{padding:17px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.table-head h3{font-size:15px;margin:0}.add{border:0;background:#2563eb;color:#fff;border-radius:8px;padding:10px 13px;font-weight:700;cursor:pointer}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:1200px}.table th,.table td{padding:12px 14px;border-bottom:1px solid #edf0f4;text-align:left;font-size:11px}.table th{background:#f8fafc;color:#667085;font-weight:700}.table td{color:#344054}.pill{display:inline-block;padding:5px 9px;border-radius:20px;font-size:10px;font-weight:700;background:#dcfce7;color:#166534}.pill.inactive{background:#fee2e2;color:#991b1b}.action{border:0;background:#eef4ff;color:#1d4ed8;border-radius:6px;padding:6px 8px;font-size:10px;cursor:pointer;margin-right:4px}.action.del{background:#fff0f0;color:#b42318}.empty{text-align:center;padding:45px;color:#64748b;font-size:13px}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.58);display:none;align-items:center;justify-content:center;padding:18px;z-index:100}.modal-box{width:min(850px,100%);max-height:94vh;overflow:auto;background:#fff;border-radius:15px;padding:24px}.modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}.modal-head h2{font-size:19px;margin:0 0 5px}.modal-head p{font-size:12px;color:#64748b;margin:0}.close{border:0;background:#f1f5f9;border-radius:8px;width:36px;height:36px;font-size:22px;cursor:pointer}.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.form label{font-size:11px;font-weight:700;color:#344054}.form input,.form select{display:block;width:100%;margin-top:6px;padding:10px;border:1px solid #d5dce6;border-radius:8px;background:#fff}.full{grid-column:1/-1}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}.cancel{border:0;background:#e9edf3;padding:10px 14px;border-radius:8px;font-weight:700}.save{border:0;background:#2563eb;color:#fff;padding:10px 14px;border-radius:8px;font-weight:700}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.detail-item{background:#f8fafc;padding:12px;border-radius:8px}.detail-item small{display:block;color:#64748b;margin-bottom:4px}
+@media(max-width:900px){.sidebar{width:215px}.main{margin-left:215px}.cards{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr 1fr}.top{padding:0 20px}.content{padding:20px}}
+@media(max-width:650px){.sidebar{position:static;width:100%;height:auto;min-height:0}.main{margin-left:0}.nav{display:grid;grid-template-columns:1fr 1fr}.spacer{display:none}.signout{margin-top:15px}.top{height:auto;padding:15px 16px}.content{padding:15px}.cards{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr}.welcome{align-items:flex-start;gap:12px;flex-direction:column}.form,.detail-grid{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand"><div class="logo">S</div><div><h2>SHTMS</h2><p>School Higher Tertiary<br>Management System</p></div></div>
+  <div class="menu-title">MAIN MENU</div>
+  <nav class="nav">
+    <button data-page="Dashboard"><span class="ico">📊</span>Dashboard</button>
+    <button data-page="Students"><span class="ico">🎓</span>Students</button>
+    <button class="active" data-page="Lecturers"><span class="ico">👨‍🏫</span>Lecturers</button>
+    <button data-page="Departments"><span class="ico">🏛️</span>Departments</button>
+    <button data-page="Programmes"><span class="ico">📚</span>Programmes</button>
+    <button data-page="Courses"><span class="ico">📖</span>Courses</button>
+    <button data-page="Results"><span class="ico">📝</span>Results</button>
+    <button data-page="Payments"><span class="ico">💰</span>Payments</button>
+  </nav>
+  <div class="menu-title">ADMINISTRATION</div>
+  <nav class="nav">
+    <button data-page="User Management"><span class="ico">👥</span>User Management</button>
+    <button data-page="Reports"><span class="ico">📈</span>Reports</button>
+    <button data-page="Settings"><span class="ico">⚙️</span>Settings</button>
+  </nav>
+  <div class="spacer"></div><button class="signout" onclick="logout()">↪ &nbsp; Sign Out</button>
+</aside>
+
+<section class="main">
+<header class="top"><div class="heading"><h1>Lecturers</h1><p>SHTMS administration and institutional overview</p></div><div class="top-right"><div class="avatar">A</div><button class="logout-top" onclick="logout()">↪ &nbsp; Logout</button></div></header>
+<div class="content">
+  <div class="welcome"><div><h2>Welcome back, Administrator 👋</h2><p>Manage lecturer profiles and teaching staff records.</p></div><div class="date" id="today"></div></div>
+  <div class="cards">
+    <div class="card"><small>Total Lecturers</small><strong id="total">0</strong></div>
+    <div class="card"><small>Active Lecturers</small><strong id="active">0</strong></div>
+    <div class="card"><small>Male Lecturers</small><strong id="male">0</strong></div>
+    <div class="card"><small>Female Lecturers</small><strong id="female">0</strong></div>
+  </div>
+  <div class="toolbar">
+    <input id="search" placeholder="Search staff ID, name, email or phone..." oninput="render()">
+    <select id="department" onchange="render()"><option value="">All Departments</option><option>Computer Science</option><option>Business Administration</option><option>Accounting</option><option>Public Administration</option><option>Mass Communication</option></select>
+    <select id="rank" onchange="render()"><option value="">All Ranks</option><option>Professor</option><option>Associate Professor</option><option>Senior Lecturer</option><option>Lecturer I</option><option>Lecturer II</option><option>Assistant Lecturer</option></select>
+    <select id="statusFilter" onchange="render()"><option value="">All Status</option><option>Active</option><option>Inactive</option></select>
+  </div>
+  <div class="table-card">
+    <div class="table-head"><h3>Lecturer Records</h3><button class="add" onclick="openAdd()">+ Add Lecturer</button></div>
+    <div class="table-wrap"><table class="table"><thead><tr><th>Staff ID</th><th>Full Name</th><th>Gender</th><th>Department</th><th>Rank</th><th>Specialization</th><th>Phone</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead><tbody id="tbody"></tbody></table><div id="empty" class="empty" style="display:none">No lecturer records found.</div></div>
+  </div>
+</div>
+</section>
+
+<div id="modal" class="modal"><div class="modal-box">
+<div class="modal-head"><div><h2 id="modalTitle">Add New Lecturer</h2><p>Enter the lecturer's information below.</p></div><button class="close" onclick="closeModal()">×</button></div>
+<form id="form" class="form" onsubmit="save(event)">
+<input type="hidden" id="oldId">
+<label>Staff ID<input id="sid" required placeholder="SHTMS/L/2026/0001"></label>
+<label>Full Name<input id="name" required placeholder="Full name"></label>
+<label>Gender<select id="gender" required><option value="">Select gender</option><option>Male</option><option>Female</option></select></label>
+<label>Date of Birth<input id="dob" type="date"></label>
+<label>Department<select id="dep" required><option value="">Select department</option><option>Computer Science</option><option>Business Administration</option><option>Accounting</option><option>Public Administration</option><option>Mass Communication</option></select></label>
+<label>Rank<select id="rankForm" required><option value="">Select rank</option><option>Professor</option><option>Associate Professor</option><option>Senior Lecturer</option><option>Lecturer I</option><option>Lecturer II</option><option>Assistant Lecturer</option></select></label>
+<label>Specialization<input id="specialization" placeholder="e.g. Software Engineering"></label>
+<label>Qualification<input id="qualification" placeholder="e.g. PhD, MSc, BSc"></label>
+<label>Phone<input id="phone" required placeholder="08012345678"></label>
+<label>Email<input id="email" type="email" placeholder="lecturer@example.com"></label>
+<label>Status<select id="status"><option>Active</option><option>Inactive</option></select></label>
+<div class="modal-actions full"><button type="button" class="cancel" onclick="closeModal()">Cancel</button><button class="save" type="submit">Save Lecturer</button></div>
+</form></div></div>
+
+<div id="detailModal" class="modal"><div class="modal-box"><div class="modal-head"><div><h2>Lecturer Details</h2><p>Complete lecturer record.</p></div><button class="close" onclick="closeDetails()">×</button></div><div id="details" class="detail-grid"></div><div class="modal-actions"><button class="cancel" onclick="closeDetails()">Close</button></div></div></div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import{getAuth,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const firebaseConfig={apiKey:"AIzaSyDfHJaoVA7eQKWWq71zn2bQOpR4Vot9v8c",authDomain:"smsh-282c0.firebaseapp.com",projectId:"smsh-282c0",storageBucket:"smsh-282c0.firebasestorage.app",messagingSenderId:"477828256463",appId:"1:477828256463:web:80a6755b679f585c73ddba"};
+const auth=getAuth(initializeApp(firebaseConfig));
+const roles={"admin@shtms.com":"admin","registrar@shtms.com":"registrar","hod@shtms.com":"hod","lecturer@shtms.com":"lecturer","bursary@shtms.com":"bursary","student@shtms.com":"student"};
+onAuthStateChanged(auth,u=>{if(!u||roles[(u.email||"").toLowerCase()]!=="admin"){sessionStorage.clear();location.href="index.html";return}document.body.style.visibility="visible";render()});
+window.logout=async()=>{try{await signOut(auth)}finally{sessionStorage.clear();location.href="index.html"}};
+const KEY="shtms_lecturers";const get=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}},set=v=>localStorage.setItem(KEY,JSON.stringify(v));
+function seed(){if(get().length)return;set([
+{id:"SHTMS/L/2026/0001",name:"Dr. Ibrahim Musa",gender:"Male",dob:"1980-05-14",department:"Computer Science",rank:"Senior Lecturer",specialization:"Software Engineering",qualification:"PhD",phone:"08011111111",email:"ibrahim@shtms.com",status:"Active"},
+{id:"SHTMS/L/2026/0002",name:"Dr. Aisha Bello",gender:"Female",dob:"1984-09-22",department:"Business Administration",rank:"Lecturer I",specialization:"Business Management",qualification:"PhD",phone:"08022222222",email:"aisha@shtms.com",status:"Active"},
+{id:"SHTMS/L/2026/0003",name:"Mr. Yusuf Abdullahi",gender:"Male",dob:"1988-02-10",department:"Accounting",rank:"Lecturer II",specialization:"Financial Accounting",qualification:"MSc",phone:"08033333333",email:"yusuf@shtms.com",status:"Active"}
+])}
+const esc=v=>String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+window.render=()=>{const q=document.getElementById("search").value.toLowerCase(),d=document.getElementById("department").value,r=document.getElementById("rank").value,st=document.getElementById("statusFilter").value;const a=get(),list=a.filter(x=>(!q||[x.id,x.name,x.email,x.phone,x.department,x.rank,x.specialization].join(" ").toLowerCase().includes(q))&&(!d||x.department===d)&&(!r||x.rank===r)&&(!st||x.status===st));document.getElementById("tbody").innerHTML=list.map(x=>`<tr><td><b>${esc(x.id)}</b></td><td>${esc(x.name)}</td><td>${esc(x.gender)}</td><td>${esc(x.department)}</td><td>${esc(x.rank)}</td><td>${esc(x.specialization||"-")}</td><td>${esc(x.phone)}</td><td>${esc(x.email||"-")}</td><td><span class="pill ${x.status==="Inactive"?"inactive":""}">${esc(x.status)}</span></td><td><button class="action" onclick="view('${encodeURIComponent(x.id)}')">View</button><button class="action" onclick="edit('${encodeURIComponent(x.id)}')">Edit</button><button class="action del" onclick="removeLecturer('${encodeURIComponent(x.id)}')">Delete</button></td></tr>`).join("");document.getElementById("empty").style.display=list.length?"none":"block";document.getElementById("total").textContent=a.length;document.getElementById("active").textContent=a.filter(x=>x.status==="Active").length;document.getElementById("male").textContent=a.filter(x=>x.gender==="Male").length;document.getElementById("female").textContent=a.filter(x=>x.gender==="Female").length};
+window.openAdd=()=>{document.getElementById("form").reset();document.getElementById("oldId").value="";document.getElementById("modalTitle").textContent="Add New Lecturer";document.getElementById("modal").style.display="flex"};
+window.closeModal=()=>document.getElementById("modal").style.display="none";
+window.edit=e=>{const x=get().find(v=>v.id===decodeURIComponent(e));if(!x)return;openAdd();document.getElementById("modalTitle").textContent="Edit Lecturer";document.getElementById("oldId").value=x.id;document.getElementById("sid").value=x.id;document.getElementById("name").value=x.name;document.getElementById("gender").value=x.gender;document.getElementById("dob").value=x.dob||"";document.getElementById("dep").value=x.department;document.getElementById("rankForm").value=x.rank;document.getElementById("specialization").value=x.specialization||"";document.getElementById("qualification").value=x.qualification||"";document.getElementById("phone").value=x.phone;document.getElementById("email").value=x.email||"";document.getElementById("status").value=x.status||"Active"};
+window.save=e=>{e.preventDefault();const old=document.getElementById("oldId").value,x={id:document.getElementById("sid").value.trim(),name:document.getElementById("name").value.trim(),gender:document.getElementById("gender").value,dob:document.getElementById("dob").value,department:document.getElementById("dep").value,rank:document.getElementById("rankForm").value,specialization:document.getElementById("specialization").value.trim(),qualification:document.getElementById("qualification").value.trim(),phone:document.getElementById("phone").value.trim(),email:document.getElementById("email").value.trim(),status:document.getElementById("status").value};let a=get();if(!old&&a.some(v=>v.id.toLowerCase()===x.id.toLowerCase()))return alert("That Staff ID already exists.");set(old?a.map(v=>v.id===old?x:v):[...a,x]);closeModal();render();alert(old?"Lecturer updated successfully.":"Lecturer added successfully.")};
+window.removeLecturer=e=>{const id=decodeURIComponent(e);if(confirm("Delete this lecturer record? This action cannot be undone.")){set(get().filter(x=>x.id!==id));render()}};
+window.view=e=>{const x=get().find(v=>v.id===decodeURIComponent(e));if(!x)return;document.getElementById("details").innerHTML=Object.entries({id:"Staff ID",name:"Full Name",gender:"Gender",dob:"Date of Birth",department:"Department",rank:"Rank",specialization:"Specialization",qualification:"Qualification",phone:"Phone",email:"Email",status:"Status"}).map(([k,v])=>`<div class="detail-item"><small>${v}</small><b>${esc(x[k]||"-")}</b></div>`).join("");document.getElementById("detailModal").style.display="flex"};
+window.closeDetails=()=>document.getElementById("detailModal").style.display="none";
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.page==="Dashboard")location.href="SHTMS-admin-dashboard.html";else if(b.dataset.page==="Students")location.href="admin-student.html";else if(b.dataset.page!=="Lecturers")alert(b.dataset.page+" module is ready for the next development stage.")}));
+document.getElementById("today").textContent=new Date().toLocaleDateString("en-NG",{weekday:"long",day:"numeric",month:"long",year:"numeric"});seed();
+</script>
+
+<script id="shtms-final-navigation">
+(function(){
+  const ROUTES = {
+    Dashboard: "SHTMS-admin-dashboard.html",
+    Students: "admin-student.html",
+    Lecturers: "lecturer.html",
+    Departments: "department.html",
+    Programmes: "programmes.html",
+    Courses: "courses.html"
+  };
+
+  document.addEventListener("click", function(e){
+    const btn = e.target.closest && e.target.closest(".nav button[data-page]");
+    if(!btn) return;
+
+    const page = btn.getAttribute("data-page");
+    const target = ROUTES[page];
+
+    if(target){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      window.location.assign(target);
+    }
+  }, true);
+})();
+</script>
+
+</body></html>
