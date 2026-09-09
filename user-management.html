@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SHTMS | User Management</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f8fafc;color:#172033}
+.layout{display:flex;min-height:100vh}.sidebar{width:250px;background:#0f172a;color:#fff;padding:22px 14px;position:fixed;left:0;top:0;bottom:0}
+.brand{display:flex;gap:11px;align-items:center;padding:8px 10px 25px}.logo{width:42px;height:42px;border-radius:12px;background:#fff;color:#2563eb;display:grid;place-items:center;font-weight:900;font-size:20px}
+.brand h2{margin:0;font-size:19px}.brand p{margin:3px 0 0;font-size:10px;color:#aab9d2}
+.nav-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#8fa4c5;padding:12px}.nav button{width:100%;border:0;background:transparent;color:#dbe6f8;text-align:left;padding:11px 12px;border-radius:9px;margin:2px 0;cursor:pointer;font-size:13px}
+.nav button:hover,.nav button.active{background:#1e3a8a;color:#fff}.icon{display:inline-block;width:28px}.sidebar-bottom{position:absolute;bottom:20px;left:14px;right:14px}.logout{width:100%;padding:11px;border:1px solid #29466f;background:transparent;color:#fff;border-radius:9px;cursor:pointer}
+.main{margin-left:250px;width:calc(100% - 250px)}.topbar{height:76px;background:#fff;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+.page-title h1{font-size:21px;margin:0}.page-title p{font-size:12px;color:#64748b;margin:4px 0}.profile{display:flex;gap:10px;align-items:center}.avatar{width:38px;height:38px;border-radius:50%;background:#e8f0ff;color:#2563eb;display:grid;place-items:center;font-weight:800}
+.content{padding:25px}.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px}.card h2{margin-top:0}.card p{color:#64748b}.back{display:inline-block;margin-top:12px;padding:10px 15px;border-radius:8px;background:#2563eb;color:#fff;text-decoration:none;font-weight:700}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="brand"><div class="logo">S</div><div><h2>SHTMS</h2><p>School Higher Tertiary Management System</p></div></div>
+<nav class="nav">
+<div class="nav-label">Main Menu</div>
+<button data-page="Dashboard"><span class="icon">📊</span>Dashboard</button>
+<button data-page="Students"><span class="icon">🎓</span>Students</button>
+<button data-page="Lecturers"><span class="icon">👨‍🏫</span>Lecturers</button>
+<button data-page="Departments"><span class="icon">🏛️</span>Departments</button>
+<button data-page="Programmes"><span class="icon">📚</span>Programmes</button>
+<button data-page="Courses"><span class="icon">📖</span>Courses</button>
+<button data-page="Results"><span class="icon">📝</span>Results</button>
+<button data-page="Payments"><span class="icon">💰</span>Payments</button>
+<div class="nav-label">Administration</div>
+<button class="active" data-page="User Management"><span class="icon">👥</span>User Management</button>
+<button data-page="Reports"><span class="icon">📈</span>Reports</button>
+<button data-page="Settings"><span class="icon">⚙️</span>Settings</button>
+</nav>
+<div class="sidebar-bottom"><button class="logout" onclick="shtmsLogout()">↪ Sign Out</button></div>
+</aside>
+<main class="main">
+<header class="topbar"><div class="page-title"><h1>User Management</h1><p>SHTMS institutional user accounts and role access</p></div><div class="profile"><div class="avatar">A</div><div><strong>Administrator</strong><span>admin@shtms.com</span></div></div></header>
+<section class="content"><div class="card"><h2>User Management</h2><p>Manage institutional user accounts and role access. This module is connected to the Admin Dashboard navigation and protected for Admin users.</p><a class="back" href="SHTMS-admin-dashboard.html">← Back to Dashboard</a></div></section>
+</main>
+</div>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {getAuth,onAuthStateChanged,signOut,setPersistence,browserLocalPersistence} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+const firebaseConfig={apiKey:"AIzaSyDfHJaoVE7aQKWWq71zn2bQOpR4Vot9v8c",authDomain:"smsh-282c0.firebaseapp.com",projectId:"smsh-282c0",storageBucket:"smsh-282c0.firebasestorage.app",messagingSenderId:"477828256463",appId:"1:477828256463:web:80a6755b679f585c73ddba"};
+const auth=getAuth(initializeApp(firebaseConfig));
+const roles={"admin@shtms.com":"admin","registrar@shtms.com":"registrar","hod@shtms.com":"hod","lecturer@shtms.com":"lecturer","bursary@shtms.com":"bursary","student@shtms.com":"student"};
+setPersistence(auth,browserLocalPersistence).catch(()=>{});
+onAuthStateChanged(auth,u=>{
+  if(!u || roles[(u.email||"").toLowerCase()]!=="admin"){signOut(auth).catch(()=>{});location.href="index.html";return;}
+});
+window.shtmsLogout=async()=>{await signOut(auth);sessionStorage.clear();location.href="index.html"};
+</script>
+
+<script id="shtms-navigation">
+(function(){
+  const routes = {'Dashboard': 'SHTMS-admin-dashboard.html', 'Students': 'admin-student.html', 'Lecturers': 'lecturer.html', 'Departments': 'department.html', 'Programmes': 'programmes.html', 'Courses': 'courses.html', 'Results': 'results.html', 'Payments': 'payments.html', 'Users': 'user-management.html', 'User Management': 'user-management.html', 'Reports': 'reports.html', 'Settings': 'settings.html'};
+  document.addEventListener("click", function(e){
+    const b = e.target.closest && e.target.closest("[data-page]");
+    if (!b) return;
+    const target = routes[b.dataset.page];
+    if (!target) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    window.location.assign(target);
+  }, true);
+})();
+</script>
+
+</body>
+</html>
