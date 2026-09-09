@@ -1129,7 +1129,7 @@ onAuthStateChanged(auth, (user) => {
 
 <script id="shtms-navigation">
 (function(){
-  const routes = {'Dashboard': 'SHTMS-admin-dashboard.html', 'Students': 'admin-student.html', 'Lecturers': 'lecturer.html', 'Departments': 'department.html', 'Programmes': 'programmes.html', 'Courses': 'courses.html', 'Results': 'results.html', 'Payments': 'payments.html', 'Users': 'user-management.html', 'User Management': 'user-management.html', 'Reports': 'reports.html', 'Settings': 'settings.html'};
+  const routes = {'Dashboard': 'admin-dashboard.html', 'Students': 'student.html', 'Lecturers': 'lecturer.html', 'Departments': 'department.html', 'Programmes': 'programmes.html', 'Courses': 'courses.html', 'Results': 'results.html', 'Payments': 'payments.html', 'Users': 'user-management.html', 'User Management': 'user-management.html', 'Reports': 'reports.html', 'Settings': 'settings.html'};
   document.addEventListener("click", function(e){
     const b = e.target.closest && e.target.closest("[data-page]");
     if (!b) return;
